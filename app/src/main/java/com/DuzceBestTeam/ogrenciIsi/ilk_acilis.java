@@ -75,7 +75,7 @@ public class ilk_acilis extends AppCompatActivity {
         btnLoginPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent it = new  Intent(ilk_acilis.this, MainActivity.class);
+                Intent it = new  Intent(ilk_acilis.this, LoginPage.class);
                 startActivity(it);
 
             }
