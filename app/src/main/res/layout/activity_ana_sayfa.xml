@@ -7,7 +7,6 @@
     tools:context=".AnaSayfa">
 
     <com.google.android.material.button.MaterialButton
-        style="@style/Theme.MaterialComponents"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="84dp"
