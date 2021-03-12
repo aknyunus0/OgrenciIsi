@@ -10,6 +10,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 
 public class BireyselFragment extends Fragment {
+    public static BireyselFragment newInstance() {
+        return new BireyselFragment();
+    }
 
     @Nullable
     @Override

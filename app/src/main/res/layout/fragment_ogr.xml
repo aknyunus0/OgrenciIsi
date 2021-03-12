@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.appcompat.widget.LinearLayoutCompat xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:gravity="center"
+   android:gravity="center"
     android:paddingLeft="20dp"
     android:paddingRight="20dp"
     android:orientation="vertical">
@@ -19,29 +19,32 @@
         <EditText
             android:id="@+id/txtName"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/isim"
-            />
+            android:layout_height="39dp"
+            android:background="@drawable/custom_edit_text"
+            android:hint="  İsim" />
 
         <EditText
             android:id="@+id/txtSurname"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="@string/soyisim"
+            android:hint="  Soyisim"
+            android:layout_height="39dp"
+            android:background="@drawable/custom_edit_text"
             android:layout_marginTop="10dp"/>
         <EditText
             android:id="@+id/txtMailEdu"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="39dp"
+            android:background="@drawable/custom_edit_text"
             android:inputType="textEmailAddress"
-            android:hint="@string/e_mail"
+            android:hint="  E-Mail@edu"
             android:layout_marginTop="10dp"/>
         <EditText
             android:id="@+id/txtPassword"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="39dp"
+            android:background="@drawable/custom_edit_text"
             android:inputType="textPassword"
-            android:hint="@string/sifre"
+            android:hint="  Şifre"
             android:layout_marginTop="10dp"/>
 
         <com.google.android.material.button.MaterialButton
@@ -57,4 +60,4 @@
 
 
 
-</androidx.appcompat.widget.LinearLayoutCompat>
+</RelativeLayout>
