@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "287612271619",
+    "project_id": "ogrenciisi-963db",
+    "storage_bucket": "ogrenciisi-963db.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:287612271619:android:7e10a21240a54777d9e236",
+        "android_client_info": {
+          "package_name": "com.DuzceBestTeam.ogrenciIsi"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "287612271619-ds7esfjt9d394i11t60g5u3tr8ql9eck.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDZUA-O6NM3Q4iZfLLDLUlf_8vfdVlMy9o"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "287612271619-ds7esfjt9d394i11t60g5u3tr8ql9eck.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -16,10 +16,10 @@
 
 
     <EditText
-        android:id="@+id/userName"
+        android:id="@+id/userMail"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:hint="User Name"
+        android:hint="User Mail"
         android:background="@drawable/custom_edit_text"
         android:drawableStart="@drawable/ic_username" />
     <EditText
