@@ -7,4 +7,9 @@
     <string name="debgvgv">debgvgv</string>
     <string name="furkan">Furkan</string>
     <string name="yeter_lan_yeter">YETER LAN YETER</string>
+    <string name="isim">İsim</string>
+    <string name="soyisim">Soyisim</string>
+    <string name="e_mail">E-mail (@edu)</string>
+    <string name="sifre">Şifre</string>
+    <string name="kaydol">Kaydol</string>
 </resources>

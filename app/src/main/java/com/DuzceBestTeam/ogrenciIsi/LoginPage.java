@@ -74,7 +74,7 @@ public class LoginPage extends AppCompatActivity {
 
     // activity_main içindeki elemanları id'lerine göre bulup ilgili değişkenlere atayacak fonksiyon
     void initComponents(){
-        userName = findViewById(R.id.userName); // id değerine göre bulup atama yapılır
+        userName = findViewById(R.id.userMail); // id değerine göre bulup atama yapılır
         userPassword = findViewById(R.id.userPassword); // id değerine göre bulup atama yapılır
         btnlogin = findViewById(R.id.btnLogin); // id değerine göre bulup atama yapılır
         btnCreateAccPage=findViewById(R.id.btnCreateAccPage);
