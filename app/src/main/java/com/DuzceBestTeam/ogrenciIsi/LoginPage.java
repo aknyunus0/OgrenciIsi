@@ -64,7 +64,10 @@ public class LoginPage extends AppCompatActivity {
         btnCreateAccPage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 Intent intent = new Intent(LoginPage.this, createAccountPage.class);
+            Intent gelenIntent=getIntent();
+            int sayi=gelenIntent.getIntExtra("alperemn",-1);
                 startActivity(intent);
             }
         });
