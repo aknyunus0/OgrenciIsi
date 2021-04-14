@@ -40,16 +40,6 @@ class OgrenciUser{
 public class createAccountPage extends AppCompatActivity {
     EditText Cr_txtEmail,Cr_txtSifre,Cr_txtAd,Cr_txtSoyad;
 
-
-
-
-
-
-
-
-
-
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,19 +63,7 @@ public class createAccountPage extends AppCompatActivity {
         DatabaseReference mDatabase;
         FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
         DatabaseReference dbRef = firebaseDatabase.getReference("OgrenciUsers");
-        mDatabase = FirebaseDatabase.getInstance().getReference();
-
-        String key = dbRef.push().getKey();
-        OgrenciUser user= new OgrenciUser(
-                Cr_txtEmail.getText().toString(),
-                Cr_txtSifre.getText().toString(),
-                Cr_txtAd.getText().toString(),
-                Cr_txtSoyad.getText().toString(),key);
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
-        mDatabase.child("OgrenciUsers").setValue(user);
-
-
+        dbRef.setValue("Alperen");
 
     }
     void initComponents(){
