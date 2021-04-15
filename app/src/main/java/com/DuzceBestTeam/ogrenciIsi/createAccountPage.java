@@ -1,52 +1,39 @@
 package com.DuzceBestTeam.ogrenciIsi;
-import com.google.gson.Gson;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.viewpager.widget.ViewPager;
+
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.firebase.auth.AuthResult;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import android.annotation.SuppressLint;
+import android.app.ProgressDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
+import android.widget.Toast;
 
-class OgrenciUser{
-    String Ad;
-    String Soyad;
-    String Email;
-    String Sifre;
-    String key;
-    public OgrenciUser(String Ad,
-            String Soyad,
-            String Email,
-            String Sifre,
-            String key){
-        this.Ad=Ad;
-        this.Soyad=Soyad;
-        this.Email=Email;
-        this.Sifre=Sifre;
-        this.key=key;
-    }
-}
+import java.util.HashMap;
+
+
 
 public class createAccountPage extends AppCompatActivity {
     EditText Cr_txtEmail,Cr_txtSifre,Cr_txtAd,Cr_txtSoyad;
-
-
-
-
-
-
-
-
+    FirebaseAuth mAuth;
+    ProgressDialog registerProgress;
+    DatabaseReference mDatabase;
 
 
 
@@ -70,29 +57,88 @@ public class createAccountPage extends AppCompatActivity {
     }
 
     public void btn_signUpOnClick (View v){
-        DatabaseReference mDatabase;
-        FirebaseDatabase firebaseDatabase = FirebaseDatabase.getInstance();
-        DatabaseReference dbRef = firebaseDatabase.getReference("OgrenciUsers");
-        mDatabase = FirebaseDatabase.getInstance().getReference();
 
-        String key = dbRef.push().getKey();
-        OgrenciUser user= new OgrenciUser(
-                Cr_txtEmail.getText().toString(),
-                Cr_txtSifre.getText().toString(),
-                Cr_txtAd.getText().toString(),
-                Cr_txtSoyad.getText().toString(),key);
-        Gson gson = new Gson();
-        String json = gson.toJson(user);
-        mDatabase.child("OgrenciUsers").setValue(user);
+        String Ad=Cr_txtAd.getText().toString();
+        String Soyad=Cr_txtSoyad.getText().toString();
+        String Email=Cr_txtEmail.getText().toString();
+        String Sifre=Cr_txtSifre.getText().toString();
+
+        if(!TextUtils.isEmpty(Ad)||!TextUtils.isEmpty(Soyad)||!TextUtils.isEmpty(Email)||!TextUtils.isEmpty(Sifre)){
+            registerProgress.setTitle("Kaydediliyor...");
+            registerProgress.setMessage("Hesap Oluşturuluyor,Lütfen Bekleyiniz.");
+            registerProgress.setCanceledOnTouchOutside(false);
+            registerProgress.show();
+            register_User(Ad,Soyad,Email,Sifre);
 
 
+        }
 
+
+    }
+    void register_User(final String ad, final String Soyad, final String Email, final String Sifre){
+        mAuth.createUserWithEmailAndPassword(Email,Sifre).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+            @Override
+            public void onComplete(@NonNull Task<AuthResult> task) {
+                if(task.isSuccessful()){
+                    registerProgress.dismiss();
+                    mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Void> task) {
+                            if(task.isSuccessful()){
+                                String User_id=mAuth.getCurrentUser().getUid();
+                                String UserControlName = "User_Other";
+
+                            if(Email.contains("edu.tr")&& Email.contains("@ogr")){
+                                UserControlName="User_Ogrenciler";
+                            }
+                                 mDatabase=FirebaseDatabase.getInstance().getReference().child(UserControlName).child(User_id);
+                                HashMap<String,String> userMap=new HashMap<>();
+                                userMap.put("Ad",ad);
+                                userMap.put("Soyad",Soyad);
+                                userMap.put("EMail",Email);
+                                userMap.put("Sifre",Sifre);
+                                mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+                                    @Override
+                                    public void onComplete(@NonNull Task<Void> task) {
+                                        if(task.isSuccessful()){
+                                            Toast.makeText(createAccountPage.this,"Lütfen Maile gelen link ile hesabınızı onaylayıp giriş yapınız.",Toast.LENGTH_LONG).show();
+                                            Intent LoginIntent=new Intent(createAccountPage.this,LoginPage.class);
+                                            startActivity(LoginIntent);
+                                        }
+
+                                    }
+                                });
+
+
+                            }
+                            else {
+                                Toast.makeText(createAccountPage.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                            }
+
+
+                        }
+                    });
+
+
+
+
+                }
+                else {
+                    registerProgress.dismiss();
+                    Toast.makeText(getApplicationContext(),"hata:"+task.getException().getMessage(),Toast.LENGTH_LONG).show();
+                }
+
+
+            }
+        });
     }
     void initComponents(){
         Cr_txtEmail = findViewById(R.id.Cr_txtEmail); // id değerine göre bulup atama yapılır
         Cr_txtAd = findViewById(R.id.Cr_txtAd); // id değerine göre bulup atama yapılır
         Cr_txtSifre = findViewById(R.id.Cr_txtSifre); // id değerine göre bulup atama yapılır
         Cr_txtSoyad=findViewById(R.id.Cr_txtSoyad);
+        mAuth=FirebaseAuth.getInstance();
+        registerProgress=new ProgressDialog(this);
 
     }
 
