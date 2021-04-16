@@ -12,4 +12,9 @@
     <string name="e_mail">E-mail (@edu)</string>
     <string name="sifre">Şifre</string>
     <string name="kaydol">Kaydol</string>
+    <string-array name="jobKind">
+        <item>Tam Zamanlı</item>
+        <item>Yarı Zamanlı</item>
+        <item>Freelance</item>
+    </string-array>
 </resources>
