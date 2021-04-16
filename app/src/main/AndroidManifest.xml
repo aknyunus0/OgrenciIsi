@@ -9,28 +9,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".createAccountPage"></activity>
-        <activity
+        <activity android:name=".newJobAdv"></activity>
+        <activity android:name=".createAccountPage" />
+        <activity android:name=".LoginPage">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
-            android:name=".LoginPage">
-                <intent-filter>
-                    <action android:name="android.intent.action.MAIN" />
-
-                    <category android:name="android.intent.category.LAUNCHER" />
-                </intent-filter>
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
-
-        <activity
-            android:name=".ilk_acilis"
-            >
-
-        </activity>
+        <activity android:name=".ilk_acilis"></activity>
         <activity android:name=".AnaSayfa" />
-        <activity
-            android:name=".MainActivity"
-            >
-
-        </activity>
+        <activity android:name=".MainActivity"></activity>
     </application>
 
 </manifest>
