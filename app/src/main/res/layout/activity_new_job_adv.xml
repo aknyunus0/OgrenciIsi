@@ -23,6 +23,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="İlan Adı"
+                android:id="@+id/job_title"
                 android:background="@drawable/custom_edit_text" />
             <EditText
 
@@ -30,71 +31,57 @@
                 android:layout_height="200dp"
                 android:hint="İş Tanımı"
                 android:background="@drawable/custom_edit_text"
+                android:id="@+id/job_description"
                 android:layout_marginTop="10dp"/>
-            <EditText
 
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Çalışma Şekli"
-                android:background="@drawable/custom_edit_text" />
             <EditText
 
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Pozisyon"
                 android:background="@drawable/custom_edit_text"
+                android:id="@+id/job_position"
                 android:layout_marginTop="10dp"/>
             <EditText
 
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Son başvuru Tarihi"
-                android:background="@drawable/custom_edit_text" />
-            <EditText
+                android:background="@drawable/custom_edit_text"
+                android:id="@+id/job_deadline"/>
+
+            <Spinner
+                android:layout_marginRight="20dp"
+                android:layout_width="30dp"
+                android:layout_height="50dp"
+                android:id="@+id/spinner_ip"
+                android:spinnerMode="dropdown" />
 
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
                 android:hint="Password"
                 android:background="@drawable/custom_edit_text"
                 android:layout_marginTop="10dp"/>
-            <EditText
-
+            <TextView
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                android:hint="User Mail"
+                android:text="Tam Zamanlı"
+                android:id="@+id/Spinner_Text"
                 android:background="@drawable/custom_edit_text" />
             <EditText
 
                 android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Password"
+                android:layout_height="100dp"
+                android:hint="Aranan Özellikler"
                 android:background="@drawable/custom_edit_text"
+                android:id="@+id/job_needs"
                 android:layout_marginTop="10dp"/>
-            <EditText
+            <Button
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/job_save_button"
+                android:text="İlanı Yayınla" />
 
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="User Mail"
-                android:background="@drawable/custom_edit_text" />
-            <EditText
-
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Password"
-                android:background="@drawable/custom_edit_text"
-                android:layout_marginTop="10dp"/>
-            <EditText
-
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="User Mail"
-                android:background="@drawable/custom_edit_text" />
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:hint="Password"
-                android:background="@drawable/custom_edit_text"
-                android:layout_marginTop="10dp"/>
 
         </LinearLayout>
 
