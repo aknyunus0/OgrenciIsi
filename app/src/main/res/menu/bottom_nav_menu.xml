@@ -15,9 +15,9 @@
         android:id="@+id/placeholder"
         android:title="" />
     <item
-        android:id="@+id/Settings"
+        android:id="@+id/Notification"
         android:icon="@drawable/ic_baseline_notifications_none_24"
-        android:title="Settings" />
+        android:title="Notification" />
 
     <item
         android:id="@+id/Profile"

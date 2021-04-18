@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".newJobAdv"></activity>
+        <activity android:name=".Recycle_Item"></activity>
+        <activity android:name=".newJobAdv" />
         <activity android:name=".createAccountPage" />
         <activity android:name=".LoginPage">
             <intent-filter>
@@ -18,9 +19,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ilk_acilis"></activity>
+        <activity android:name=".ilk_acilis" />
         <activity android:name=".AnaSayfa" />
-        <activity android:name=".MainActivity"></activity>
+        <activity android:name=".MainActivity" />
     </application>
 
 </manifest>
