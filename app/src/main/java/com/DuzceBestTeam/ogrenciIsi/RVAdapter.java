@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -37,9 +38,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.txt_ilanbaslik.setText(ilanlar.get(position).getIlanAdi());
-        holder.txt_ilantanimi.setText(ilanlar.get(position).getIsTanimi());
-        holder.item_constraint.setTag(holder);
+        holder.ilanbaslik.setText(ilanlar.get(position).getIlanAdi());
+        holder.ilantanimi.setText(ilanlar.get(position).getIsTanimi());
+        holder.ilanPozisyon.setText(ilanlar.get(position).getPozisyon());
+        holder.ilanAciklama.setText(ilanlar.get(position).getArananOzellikler());
+        holder.ilansontarih.setText(ilanlar.get(position).getBasvuruTarihi());
+        holder.linearLayout.setTag(holder);
 
     }
 
@@ -50,16 +54,36 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
 
     public class ViewHolder extends RecyclerView.ViewHolder {
 
-        TextView txt_ilanbaslik;
-        ExpandableTextView txt_ilantanimi;
-        LinearLayout item_constraint;
+        TextView ilanbaslik;
+        TextView ilantanimi;
+        TextView ilanPozisyon, ilansontarih, ilanAciklama;
+        Button btnBasvur;
+        LinearLayout linearLayout;
+
+        Button btnDevamGor;
+        ConstraintLayout constraintDetay;
+
+
 
         public ViewHolder(@NonNull View itemView) {
 
             super(itemView);
-            txt_ilanbaslik = itemView.findViewById(R.id.ilanBaslik);
-            txt_ilantanimi = itemView.findViewById(R.id.ilanTanimi);
-            item_constraint = itemView.findViewById(R.id.item_constraint);
+            ilanbaslik = itemView.findViewById(R.id.ilanBaslik);
+            ilantanimi = itemView.findViewById(R.id.ilanTanimi);
+            ilanPozisyon = itemView.findViewById(R.id.ilanPozisyon);
+            ilansontarih = itemView.findViewById(R.id.ilansontarih);
+            ilanAciklama = itemView.findViewById(R.id.ilanAciklama);
+            btnBasvur = itemView.findViewById(R.id.btnBasvur);
+            linearLayout = itemView.findViewById(R.id.linearLayout);
+
+            btnDevamGor = itemView.findViewById(R.id.btnDevamGor);
+            constraintDetay = itemView.findViewById(R.id.constraint_detay);
+            btnDevamGor.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    constraintDetay.setVisibility(View.VISIBLE);
+                }
+            });
 
         }
     }
