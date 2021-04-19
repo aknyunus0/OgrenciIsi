@@ -43,6 +43,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         holder.ilanPozisyon.setText(ilanlar.get(position).getPozisyon());
         holder.ilanAciklama.setText(ilanlar.get(position).getArananOzellikler());
         holder.ilansontarih.setText(ilanlar.get(position).getBasvuruTarihi());
+        holder.ilanCalismaTuru.setText(ilanlar.get(position).getCalismaSekli());
         holder.linearLayout.setTag(holder);
 
     }
@@ -59,8 +60,9 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         TextView ilanPozisyon, ilansontarih, ilanAciklama;
         Button btnBasvur;
         LinearLayout linearLayout;
+        TextView ilanIsVeren, ilanCalismaTuru, ilanYayinTarihi;
 
-        Button btnDevamGor;
+        Button saklaGoster;
         ConstraintLayout constraintDetay;
 
 
@@ -73,15 +75,28 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
             ilanPozisyon = itemView.findViewById(R.id.ilanPozisyon);
             ilansontarih = itemView.findViewById(R.id.ilansontarih);
             ilanAciklama = itemView.findViewById(R.id.ilanAciklama);
+            ilanIsVeren = itemView.findViewById(R.id.ilanIsVeren);
+            ilanCalismaTuru = itemView.findViewById(R.id.ilanCalismaTuru);
+            ilanYayinTarihi = itemView.findViewById(R.id.ilanYayinTarihi);
+
+
             btnBasvur = itemView.findViewById(R.id.btnBasvur);
             linearLayout = itemView.findViewById(R.id.linearLayout);
 
-            btnDevamGor = itemView.findViewById(R.id.btnDevamGor);
+            saklaGoster = itemView.findViewById(R.id.saklaGoster);
             constraintDetay = itemView.findViewById(R.id.constraint_detay);
-            btnDevamGor.setOnClickListener(new View.OnClickListener() {
+            saklaGoster.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    constraintDetay.setVisibility(View.VISIBLE);
+                    if (constraintDetay.getVisibility()==View.VISIBLE)
+                    {
+                        saklaGoster.setBackgroundResource(R.drawable.arrow_down);
+                        constraintDetay.setVisibility(View.GONE);
+                    }
+                    else if (constraintDetay.getVisibility()==View.GONE){
+                        saklaGoster.setBackgroundResource(R.drawable.arrow_up);
+                        constraintDetay.setVisibility(View.VISIBLE);
+                    }
                 }
             });
 

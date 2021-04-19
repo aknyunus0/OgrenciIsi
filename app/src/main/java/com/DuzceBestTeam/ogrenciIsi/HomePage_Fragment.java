@@ -98,7 +98,11 @@ public class HomePage_Fragment extends Fragment {
                     String ilanAranan = item.child("Aranan Özellikler").getValue().toString();
                     String ilanSonTarih = item.child("Son Başvuru Tarihi").getValue().toString();
                     String ilanPozisyon = item.child("Pozisyon").getValue().toString();
-                    ilanlar.add(new Ilan(ilanAdi, isTanimi,ilanPozisyon,ilanSonTarih,"a",ilanAranan));
+
+                    //String isveren;
+                    String ilanCalismaTuru = item.child("Calışma Şekli").getValue().toString();
+                    //String ilanYayinTarihi
+                    ilanlar.add(new Ilan(ilanAdi, isTanimi, ilanPozisyon, ilanSonTarih, ilanCalismaTuru, ilanAranan, "İlan veren", "Yayın Tarihi"));
 
                 }
 

@@ -9,6 +9,7 @@
         <item name="colorAccent">@color/colorAccent</item>
 
     </style>
+
     <style name="MesajKutusu">
         <item name="colorPrimary">#717171</item>
     </style>
