@@ -6,13 +6,10 @@
     style="@style/CardView.Light"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginStart="20dp"
-    android:layout_marginTop="20dp"
-    android:layout_marginEnd="20dp"
-    android:layout_marginBottom="20dp"
     android:orientation="vertical"
-    app:cardBackgroundColor="#00ff00"
-    app:cardCornerRadius="20dp"
+    app:cardBackgroundColor="#DCDCDC"
+    app:cardCornerRadius="35dp"
+    app:cardUseCompatPadding="true"
     tools:context=".Recycle_Item">
 
     <LinearLayout
@@ -28,6 +25,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:padding="20dp">
+
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/profile_image"
                 android:layout_width="64dp"
@@ -40,23 +38,36 @@
 
             <TextView
                 android:id="@+id/ilanBaslik"
-                android:layout_width="200dp"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:text="İlan Adı Gelecek"
+                android:text="İlan Adı"
+                android:textSize="24dp"
                 app:layout_constraintLeft_toRightOf="@+id/profile_image"
                 android:layout_marginLeft="20dp"
                 app:layout_constraintTop_toTopOf="parent"/>
 
-                <TextView
-                    android:id="@+id/ilanPozisyon"
-                    android:layout_width="200dp"
-                    android:layout_height="wrap_content"
-                    android:text="İlan Pozisyon"
-                    app:layout_constraintLeft_toRightOf="@+id/profile_image"
-                    app:layout_constraintTop_toBottomOf="@+id/ilanBaslik"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginTop="10dp"
-                    android:textSize="12dp"/>
+            <TextView
+                android:id="@+id/ilanPozisyon"
+                android:layout_width="150dp"
+                android:layout_height="wrap_content"
+                android:text="İlan Pozisyon"
+                app:layout_constraintLeft_toRightOf="@+id/profile_image"
+                app:layout_constraintTop_toBottomOf="@+id/ilanBaslik"
+                android:layout_marginLeft="20dp"
+                android:layout_marginTop="10dp"
+                android:textSize="16dp"/>
+
+            <Button
+                android:id="@+id/saklaGoster"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/arrow_down"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.851"
+                app:layout_constraintLeft_toRightOf="@+id/ilanBaslik"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.121" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -64,7 +75,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
-            android:paddingRight="10dp">
+            android:paddingRight="15dp">
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -76,40 +87,48 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Tarih"
+
                 app:layout_constraintRight_toRightOf="parent"
                 app:layout_constraintLeft_toRightOf="@+id/txt1"
                 app:layout_constraintTop_toTopOf="parent"/>
         </androidx.constraintlayout.widget.ConstraintLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
+        <TableLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:paddingRight="10dp"
-            android:paddingLeft="20dp"
-            android:layout_marginTop="5dp">
-            <TextView
-                android:id="@+id/ilanTanimi"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="İlan Tanımı"
-                android:maxLines="3"
-                android:textSize="14dp"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent"/>
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:stretchColumns="*">
 
-            <Button
-                android:id="@+id/btnDevamGor"
-                android:layout_width="match_parent"
-                android:layout_height="35dp"
-                android:text="Devamını Gör"
-                android:textAlignment="viewStart"
-                android:textColor="#000"
-                android:textSize="14dp"
-                android:padding="0dp"
-                app:layout_constraintTop_toBottomOf="@+id/ilanTanimi"
-                tools:layout_editor_absoluteX="20dp" />
+            <TableRow
+                android:layout_width="0dp">
+                <TextView
+                    android:id="@+id/ilanIsVeren"
+                    android:text="İş Veren"
+                    android:background="@drawable/textview_border"
+                    android:textAlignment="center"
+                    android:padding="5dp"/>
 
-        </androidx.constraintlayout.widget.ConstraintLayout>
+                <TextView
+                    android:id="@+id/ilanCalismaTuru"
+                    android:text="Çalışma Türü"
+                    android:background="@drawable/textview_border"
+                    android:textAlignment="center"
+                    android:padding="5dp"/>
+
+                <TextView
+                    android:id="@+id/ilanYayinTarihi"
+                    android:text="Yayın Tarihi"
+                    android:background="@drawable/textview_border"
+                    android:textAlignment="center"
+                    android:padding="5dp"/>
+            </TableRow>
+
+
+
+        </TableLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_detay"
@@ -118,19 +137,53 @@
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
             android:paddingRight="10dp"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:id="@+id/txtilan"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="İlan Tanımı"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/ilanTanimi"
+                app:layout_constraintLeft_toLeftOf="parent"
+                android:layout_marginBottom="5dp"/>
+
+            <TextView
+                android:id="@+id/ilanTanimi"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="İlan Tanımı"
+                android:maxLines="3"
+                android:textSize="14dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/txtilan"
+                app:layout_constraintBottom_toTopOf="@id/txtAranan"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#000000"
+                app:layout_constraintBottom_toBottomOf="@id/ilanTanimi"
+                app:layout_constraintTop_toTopOf="@id/txtAranan"
+                android:layout_marginTop="15dp"
+                android:layout_marginBottom="15dp"/>
+
             <TextView
                 android:id="@+id/txtAranan"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Aranan Özellikler"
-                app:layout_constraintTop_toTopOf="parent" />
+                android:textSize="14dp"
+                android:layout_marginBottom="5dp"
+                app:layout_constraintTop_toBottomOf="@+id/ilanTanimi" />
             <TextView
                 android:id="@+id/ilanAciklama"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Aranan Özellikler"
-                android:layout_marginTop="5dp"
+                android:textSize="14dp"
+                android:layout_marginBottom="5dp"
                 app:layout_constraintTop_toBottomOf="@+id/txtAranan"
                 />
             <Button
