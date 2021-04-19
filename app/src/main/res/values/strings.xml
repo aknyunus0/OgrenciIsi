@@ -16,6 +16,13 @@
         <item>Tam Zamanlı</item>
         <item>Yarı Zamanlı</item>
         <item>Freelance</item>
+
+    </string-array>
+    <string-array name="egitimduzeyi">
+        <item>Lisans</item>
+        <item>Ön lisans</item>
+        <item>Mezun</item>
+
     </string-array>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

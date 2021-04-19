@@ -6,14 +6,39 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AnaSayfa">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="83dp"
+        android:background="#ffffff">
+
+        <ImageView
+            android:layout_width="320dp"
+            android:layout_height="wrap_content"
+            android:src="@drawable/logo"
+            android:paddingLeft="40dp"
+            android:paddingBottom="10dp"
+            android:paddingTop="10dp"
+            android:paddingRight="30dp"
+
+            />
+        <Button
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:background="@drawable/ic_inbox"
+            />
+    </androidx.appcompat.widget.Toolbar>
     <FrameLayout
         android:id="@+id/fragment_container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_marginTop="83dp"
         android:layout_marginBottom="56dp"
         android:text="Activity Ana Sayfa"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
+
 
     <com.google.android.material.bottomappbar.BottomAppBar
         android:id="@+id/bottomAppBar"
