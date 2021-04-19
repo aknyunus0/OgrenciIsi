@@ -42,22 +42,29 @@
     <TableRow
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
+        android:layout_gravity="center"
         >
         <ImageView
             android:id="@+id/imageView3"
-         android:maxWidth="100dp"
+            android:layout_width="331dp"
             android:layout_height="wrap_content"
-
-            android:layout_marginBottom="7dp"
             android:layout_marginTop="10dp"
-            android:src="@drawable/Logo" />
+
+
+            android:layout_marginBottom="650dp"
+            android:src="@drawable/logo" />
+
         <Button
             android:background="@drawable/ic_inbox"
-
             android:layout_height="wrap_content"
+            android:layout_width="wrap_content"
+            android:layout_marginTop="19dp"
+            android:layout_marginRight="23dp"
+            android:layout_marginLeft="3dp"
+            android:textColor="#717171"
 
             />
+
 
     </TableRow>
 
