@@ -56,15 +56,27 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
                 android:layout_marginTop="5dp"
-                android:text="Okuduğu Bölüm"
+                android:text=""
                 android:textSize="16dp"
                 app:layout_constraintLeft_toRightOf="@id/profile_image1"
                 app:layout_constraintTop_toBottomOf="@id/profile_name"
                 android:id="@+id/bolum"/>
+            <TextView
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginTop="5dp"
+                android:text=""
+                android:textSize="16dp"
+                app:layout_constraintLeft_toRightOf="@id/profile_image1"
+                app:layout_constraintTop_toBottomOf="@id/bolum"
+                android:id="@+id/Egitimduzeyi"/>
             <Button
                 android:layout_width="139dp"
                 android:layout_height="34dp"
@@ -78,6 +90,17 @@
                 android:textColor="#2B62D6"
                 android:textSize="11dp"
                 />
+
+            <Button
+                android:id="@+id/signOut"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Çıkış"
+                app:layout_constraintBottom_toTopOf="@+id/editprofile"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/profile_name"
+                app:layout_constraintTop_toTopOf="parent"
+               />
         </androidx.constraintlayout.widget.ConstraintLayout>
         <TableLayout
             android:layout_width="match_parent"
@@ -135,10 +158,7 @@
                 android:id="@+id/hakkindatext"
                 app:layout_constraintTop_toBottomOf="@id/baldhakkinda"
                 android:layout_marginTop="10dp"
-                android:text="
-                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel suscipit erat, ut mollis sem. Donec a leo a dui accumsan lobortis. Vivamus et egestas eros. Aliquam at viverra lectus. Sed faucibus luctus libero ac sodales. Aenean velit lacus, ullamcorper quis porta eu, blandit ut neque. Mauris vehicula, elit non tempus interdum, neque ex commodo dui, euismod tincidunt nulla nisl in magna. Sed at ipsum a urna eleifend ultricies non ac mi.
-
-Donec sed augue non libero condimentum vehicula. Nulla rutrum ante velit, eu ultricies ex semper sit amet. Etiam pretium, est ut malesuada posuere, dolor velit lacinia tortor, sed."
+                android:text=""
 
                 />
             <TextView
@@ -162,9 +182,7 @@ Donec sed augue non libero condimentum vehicula. Nulla rutrum ante velit, eu ult
                 android:id="@+id/uzmanlikalantext"
                 app:layout_constraintTop_toBottomOf="@id/uzmanlikalan"
                 android:layout_marginTop="10dp"
-                android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean vel suscipit erat, ut mollis sem. Donec a leo a dui accumsan lobortis. Vivamus et egestas eros. Aliquam at viverra lectus. Sed faucibus luctus libero ac sodales. Aenean velit lacus, ullamcorper quis porta eu, blandit ut neque. Mauris vehicula, elit non tempus interdum, neque ex commodo dui, euismod tincidunt nulla nisl in magna. Sed at ipsum a urna eleifend ultricies non ac mi.
-
-Donec sed augue non libero condimentum vehicula. Nulla rutrum ante velit, eu ultricies ex semper sit amet. Etiam pretium, est ut malesuada posuere, dolor velit lacinia tortor, sed."
+                android:text=""
                 />
 
 

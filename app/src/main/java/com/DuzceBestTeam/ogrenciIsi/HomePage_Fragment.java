@@ -13,6 +13,7 @@ import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
@@ -22,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Iterator;
 
 
@@ -32,6 +34,7 @@ public class HomePage_Fragment extends Fragment {
     ArrayList<Ilan> ilanlar;
     RecyclerView recyclerView;
     Context context;
+    SwipeRefreshLayout swipeRefresh;
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -71,6 +74,15 @@ public class HomePage_Fragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home_page_, container, false);
         context = view.getContext().getApplicationContext();
         recyclerView = view.findViewById(R.id.recyclerView);
+        swipeRefresh = view.findViewById(R.id.swipRefresh);
+
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                verileriCek();
+                swipeRefresh.setRefreshing(false);
+            }
+        });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ilanlar =  new ArrayList<>();
@@ -105,6 +117,8 @@ public class HomePage_Fragment extends Fragment {
                     ilanlar.add(new Ilan(ilanAdi, isTanimi, ilanPozisyon, ilanSonTarih, ilanCalismaTuru, ilanAranan, "İlan veren", "Yayın Tarihi"));
 
                 }
+
+                Collections.reverse(ilanlar);
 
                 recyclerView.setAdapter(new RVAdapter(ilanlar));
 

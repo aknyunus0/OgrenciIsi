@@ -13,8 +13,17 @@ import com.google.android.material.bottomnavigation.BottomNavigationView;
 
 public class AnaSayfa extends AppCompatActivity {
 
+    Fragment fragment = null;
+
     HomePage_Fragment HomePage = new HomePage_Fragment();
 
+    public AnaSayfa(Fragment fragment1) {
+        fragment = fragment1;
+        loadFragment(fragment);
+    }
+    public AnaSayfa() {
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -45,7 +54,7 @@ public void AddJobAdv_onClick(View v){
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-            Fragment fragment = null;
+
             switch (item.getItemId()) {
                 case R.id.home:
                     fragment = new HomePage_Fragment();

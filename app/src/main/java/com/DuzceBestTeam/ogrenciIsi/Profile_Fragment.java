@@ -12,6 +12,8 @@ import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
+import com.google.firebase.auth.FirebaseAuth;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link Profile_Fragment#newInstance} factory method to
@@ -20,7 +22,15 @@ import androidx.fragment.app.Fragment;
 public class Profile_Fragment extends Fragment {
     private  Button editprofile;
     private Context context;
+    private TextView Konum;
     private TextView profile_name;
+    private TextView Üniversite;
+    private TextView hakkindatext;
+    private TextView uzmanlikalantext;
+    private TextView bolum;
+    private TextView Egitimduzeyi;
+    Button signOut;
+
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -73,6 +83,28 @@ public class Profile_Fragment extends Fragment {
         editprofile=view.findViewById(R.id.editprofile);
         context=view.getContext();
         profile_name = view.findViewById(R.id.profile_name);
+        Konum = view.findViewById(R.id.Konum);
+        Üniversite = view.findViewById(R.id.Üniversite);
+        hakkindatext = view.findViewById(R.id.hakkindatext);
+        uzmanlikalantext = view.findViewById(R.id.uzmanlikalantext);
+        bolum = view.findViewById(R.id.bolum);
+        Egitimduzeyi = view.findViewById(R.id.Egitimduzeyi);
+        signOut = view.findViewById(R.id.signOut);
+
+        Konum.setText(User.userLocation);
+        Üniversite.setText(User.userUniversity);
+        hakkindatext.setText(User.userAbout);
+        uzmanlikalantext.setText(User.userExpert);
+        bolum.setText(User.userDepartman);
+        Egitimduzeyi.setText(User.userGrade);
+        signOut.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                FirebaseAuth.getInstance().signOut();
+                getActivity().finish();
+                startActivity(new Intent(getActivity(),LoginPage.class));
+            }
+        });
 
 
         profile_name.setText(User.userName + " " + User.userSurName);
@@ -87,8 +119,11 @@ public class Profile_Fragment extends Fragment {
         });
 
 
+
+
        return view;
 
 
     }
+
 }
