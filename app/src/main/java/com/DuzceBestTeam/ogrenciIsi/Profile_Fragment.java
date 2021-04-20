@@ -3,10 +3,12 @@ package com.DuzceBestTeam.ogrenciIsi;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.TextView;
 
 import androidx.fragment.app.Fragment;
 
@@ -17,7 +19,8 @@ import androidx.fragment.app.Fragment;
  */
 public class Profile_Fragment extends Fragment {
     private  Button editprofile;
-    Context context;
+    private Context context;
+    private TextView profile_name;
 
 
     // TODO: Rename parameter arguments, choose names that match
@@ -57,7 +60,6 @@ public class Profile_Fragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
-
         }
 
     }
@@ -70,6 +72,11 @@ public class Profile_Fragment extends Fragment {
         // Inflate the layout for this fragment
         editprofile=view.findViewById(R.id.editprofile);
         context=view.getContext();
+        profile_name = view.findViewById(R.id.profile_name);
+
+
+        profile_name.setText(User.userName + " " + User.userSurName);
+
         editprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
