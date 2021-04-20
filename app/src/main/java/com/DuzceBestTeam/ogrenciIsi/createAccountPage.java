@@ -95,7 +95,7 @@ public class createAccountPage extends AppCompatActivity {
                                 userMap.put("Sifre",Sifre);
                                 userMap.put("Bölüm","");
                                 userMap.put("Gizli mi?","false");
-                                userMap.put("Hakkında:","");
+                                userMap.put("Hakkında","");
                                 userMap.put("eğitim düzeyi","");
                                 userMap.put("konum","");
                                 userMap.put("uzmanlık","");

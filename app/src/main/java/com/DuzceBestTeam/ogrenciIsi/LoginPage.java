@@ -47,13 +47,13 @@ public class LoginPage extends AppCompatActivity {
 
         initComponents(); // onCreate içinde yazılarak uygulama açılırken tüm elemanlar arka planda tutulur
 
-     /*   if(mAuth.getCurrentUser() != null && mAuth.getCurrentUser().isEmailVerified()){
+      if(mAuth.getCurrentUser() != null && mAuth.getCurrentUser().isEmailVerified()){
 
             userControlMail = mAuth.getCurrentUser().getEmail();
             setUserinfo();
             startActivity(new Intent(LoginPage.this,AnaSayfa.class));
             this.finish();
-        }*/
+      }
 
 
 
