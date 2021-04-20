@@ -93,6 +93,14 @@ public class createAccountPage extends AppCompatActivity {
                                 userMap.put("Soyad",Soyad);
                                 userMap.put("EMail",Email);
                                 userMap.put("Sifre",Sifre);
+                                userMap.put("Bölüm","");
+                                userMap.put("Gizli mi?","false");
+                                userMap.put("Hakkında:","");
+                                userMap.put("eğitim düzeyi","");
+                                userMap.put("konum","");
+                                userMap.put("uzmanlık","");
+                                userMap.put("üniversite","");
+
                                 mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {

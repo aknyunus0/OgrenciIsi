@@ -1,5 +1,6 @@
 package com.DuzceBestTeam.ogrenciIsi;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
@@ -98,6 +99,8 @@ public class newJobAdv extends AppCompatActivity  {
                 }
                 DatabaseReference newJob=FirebaseDatabase.getInstance().getReference().child(UserControlName).child(User_id).child("Ilanlarim").child(jobTitle);
                 newJob.setValue(jobKey);
+
+                startActivity(new Intent(newJobAdv.this,AnaSayfa.class));
 
             }
         });

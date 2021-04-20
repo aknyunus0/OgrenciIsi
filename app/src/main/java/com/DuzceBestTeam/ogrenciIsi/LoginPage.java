@@ -47,13 +47,13 @@ public class LoginPage extends AppCompatActivity {
 
         initComponents(); // onCreate içinde yazılarak uygulama açılırken tüm elemanlar arka planda tutulur
 
-        if(mAuth.getCurrentUser() != null && mAuth.getCurrentUser().isEmailVerified()){
+     /*   if(mAuth.getCurrentUser() != null && mAuth.getCurrentUser().isEmailVerified()){
 
             userControlMail = mAuth.getCurrentUser().getEmail();
             setUserinfo();
             startActivity(new Intent(LoginPage.this,AnaSayfa.class));
             this.finish();
-        }
+        }*/
 
 
 
@@ -138,6 +138,15 @@ public class LoginPage extends AppCompatActivity {
                 User.userSurName = snapshot.child("Soyad").getValue().toString();
                 User.userMail = snapshot.child("EMail").getValue().toString();
                 User.userPassword = snapshot.child("Sifre").getValue().toString();
+                User.userDepartman = snapshot.child("Bölüm").getValue().toString();
+                User.userExpert = snapshot.child("uzmanlık").getValue().toString();
+                User.userGrade = snapshot.child("eğitim düzeyi").getValue().toString();
+                User.userUniversity = snapshot.child("üniversite").getValue().toString();
+                User.userLocation = snapshot.child("konum").getValue().toString();
+                User.userAbout = snapshot.child("Hakkında").getValue().toString();
+                User.isSecretProfile = Boolean.parseBoolean(snapshot.child("Gizli mi?").getValue().toString());
+
+
 
                 Iterator<DataSnapshot> items = snapshot.child("Ilanlarim").getChildren().iterator();
 
