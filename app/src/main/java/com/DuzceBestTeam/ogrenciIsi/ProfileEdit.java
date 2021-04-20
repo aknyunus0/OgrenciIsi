@@ -42,16 +42,18 @@ public class ProfileEdit extends AppCompatActivity {
 // Apply the adapter to the spinner
         spinner.setAdapter(adapter);
 
-       if( gizliswitch.isChecked() ){
-           User.isSecretProfile=true;
-       }
-       else{
-           User.isSecretProfile=false;
-       }
+
 
         Btn_editprofile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                if( gizliswitch.isChecked() ){
+                    User.isSecretProfile=true;
+                }
+                else{
+                    User.isSecretProfile=false;
+                }
                 mDatabase.child("Ad").setValue(editname.getText().toString());
                 mDatabase.child("Bölüm").setValue(BolumEdit.getText().toString());
                 mDatabase.child("Gizli mi?").setValue(User.isSecretProfile);
@@ -80,6 +82,12 @@ public class ProfileEdit extends AppCompatActivity {
     private void setUserInfoToEdit() {
         editname.setText(User.userName);
         editsurname.setText(User.userSurName);
+        KonumEdit.setText(User.userLocation);
+        UniversiteEdit.setText(User.userUniversity);
+        BolumEdit.setText(User.userDepartman);
+        HakkimdaEdit.setText(User.userAbout);
+        UzamanlikEdit.setText(User.userExpert);
+        gizliswitch.setChecked(User.isSecretProfile);
 
     }
 
