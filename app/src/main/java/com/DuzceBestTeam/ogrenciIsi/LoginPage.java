@@ -8,6 +8,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -18,6 +19,14 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Iterator;
 
 public class LoginPage extends AppCompatActivity {
 
@@ -26,56 +35,66 @@ public class LoginPage extends AppCompatActivity {
     Button btnlogin,btnCreateAccPage; // activity_main içindeki giriş yapmayı sağlayan Button'u tutacak değişken
     FirebaseAuth mAuth;
     ProgressDialog registerProgress;
+    DatabaseReference mDatabaseReference;
+    ArrayList<Ilan> ilanlar;
+    String userControlMail;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login_page);
-        FirebaseAuth mAuth1=FirebaseAuth.getInstance();
-        FirebaseUser mUser= mAuth1.getCurrentUser();
-        if(mUser != null && mUser.isEmailVerified()){
-
-            startActivity(new Intent(LoginPage.this,AnaSayfa.class));
-
-
-        }
 
         initComponents(); // onCreate içinde yazılarak uygulama açılırken tüm elemanlar arka planda tutulur
+
+        if(mAuth.getCurrentUser() != null && mAuth.getCurrentUser().isEmailVerified()){
+
+            userControlMail = mAuth.getCurrentUser().getEmail();
+            setUserinfo();
+            startActivity(new Intent(LoginPage.this,AnaSayfa.class));
+            this.finish();
+        }
+
 
 
         // btnGiris tıklandığında yapılacaklar
         btnlogin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerProgress.setTitle("Giriş Yapılıyor");
-                registerProgress.setMessage("Hesaba giriş yapılıyor Lütfen bekleyiniz.");
-                registerProgress.setCanceledOnTouchOutside(false);
-                registerProgress.show();
-                mAuth.signInWithEmailAndPassword(userMail.getText().toString(),userPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                    @Override
-                    public void onComplete(@NonNull Task<AuthResult> task) {
-                        registerProgress.dismiss();
-                        if(task.isSuccessful()){
-                            if(mAuth.getCurrentUser().isEmailVerified()){
-                                startActivity(new Intent(LoginPage.this,AnaSayfa.class));
+
+                if(!TextUtils.isEmpty(userPassword.getText().toString()) || !TextUtils.isEmpty(userMail.getText().toString()))
+                {
+                    registerProgress.setTitle("Giriş Yapılıyor");
+                    registerProgress.setMessage("Hesaba giriş yapılıyor Lütfen bekleyiniz.");
+                    registerProgress.setCanceledOnTouchOutside(false);
+                    registerProgress.show();
+                    mAuth.signInWithEmailAndPassword(userMail.getText().toString(),userPassword.getText().toString()).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                        @Override
+                        public void onComplete(@NonNull Task<AuthResult> task) {
+                            registerProgress.dismiss();
+                            if(task.isSuccessful()){
+                                if(mAuth.getCurrentUser().isEmailVerified()){
+                                    userControlMail = userMail.getText().toString();
+                                    setUserinfo();
+                                    startActivity(new Intent(LoginPage.this,AnaSayfa.class));
+                                    LoginPage.this.finish();
+                                }
+                                else {
+                                    Toast.makeText(LoginPage.this,"Lütfen E-mailinizi doğrulayın",Toast.LENGTH_LONG).show();
+                                }
+
                             }
-                            else {
-                                Toast.makeText(LoginPage.this,"Lütfen E-mailinizi doğrulayın",Toast.LENGTH_LONG).show();
+                            else{
+                                Toast.makeText(LoginPage.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
                             }
 
                         }
-                        else{
-                            Toast.makeText(LoginPage.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
-                        }
+                    });
 
-                    }
-                });
-
-
-
-
-
+                }
+                else{
+                    Toast.makeText(getApplicationContext(), "Bilgiler eksik girilemez", Toast.LENGTH_SHORT).show();
+                }
             }
         });
 
@@ -92,6 +111,51 @@ public class LoginPage extends AppCompatActivity {
 
     }
 
+    private void getUserDatabase(String userControlMail)
+    {
+        if(userControlMail.contains("edu.tr") && userControlMail.contains("@ogr"))
+        {
+            User.isStudent = true;
+            User.userDatabase = "User_Ogrenciler";
+        }
+        else
+        {
+            User.isStudent = false;
+            User.userDatabase = "User_Other";
+        }
+    }
+
+    private void setUserinfo() {
+
+        getUserDatabase(userControlMail);
+
+        mDatabaseReference = mDatabaseReference.child(User.userDatabase).child(mAuth.getCurrentUser().getUid());
+
+        mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                User.userName = snapshot.child("Ad").getValue().toString();
+                User.userSurName = snapshot.child("Soyad").getValue().toString();
+                User.userMail = snapshot.child("EMail").getValue().toString();
+                User.userPassword = snapshot.child("Sifre").getValue().toString();
+
+                Iterator<DataSnapshot> items = snapshot.child("Ilanlarim").getChildren().iterator();
+
+
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+
+
+        });
+
+
+
+    }
+
     // activity_main içindeki elemanları id'lerine göre bulup ilgili değişkenlere atayacak fonksiyon
     void initComponents(){
         userMail = findViewById(R.id.userMail); // id değerine göre bulup atama yapılır
@@ -100,6 +164,7 @@ public class LoginPage extends AppCompatActivity {
         btnCreateAccPage=findViewById(R.id.btnCreateAccPage);
         registerProgress=new ProgressDialog(this);
         mAuth=FirebaseAuth.getInstance();
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference();
     }
 
 

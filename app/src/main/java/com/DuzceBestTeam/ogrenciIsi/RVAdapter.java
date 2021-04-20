@@ -38,12 +38,12 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
 
-        holder.ilanbaslik.setText(ilanlar.get(position).getIlanAdi());
-        holder.ilantanimi.setText(ilanlar.get(position).getIsTanimi());
-        holder.ilanPozisyon.setText(ilanlar.get(position).getPozisyon());
-        holder.ilanAciklama.setText(ilanlar.get(position).getArananOzellikler());
-        holder.ilansontarih.setText(ilanlar.get(position).getBasvuruTarihi());
-        holder.ilanCalismaTuru.setText(ilanlar.get(position).getCalismaSekli());
+        holder.ilanbaslik.setText(ilanlar.get(position).getIlanBasligi());
+        holder.ilantanimi.setText(ilanlar.get(position).getIlanTanimi());
+        holder.ilanPozisyon.setText(ilanlar.get(position).getIlanPozisyon());
+        holder.ilanAciklama.setText(ilanlar.get(position).getIlanArananOzellikler());
+        holder.ilansontarih.setText(ilanlar.get(position).getIlanSonBasvuruTarih());
+        holder.ilanCalismaTuru.setText(ilanlar.get(position).getIlanCalismaSekli());
         holder.linearLayout.setTag(holder);
 
     }
