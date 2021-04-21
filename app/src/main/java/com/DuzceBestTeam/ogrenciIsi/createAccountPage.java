@@ -100,7 +100,7 @@ public class createAccountPage extends AppCompatActivity {
                                 userMap.put("konum","");
                                 userMap.put("uzmanlık","");
                                 userMap.put("üniversite","");
-                                userMap.put("profilresmi","");
+                                userMap.put("Profil Resmi","");
 
                                 mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
