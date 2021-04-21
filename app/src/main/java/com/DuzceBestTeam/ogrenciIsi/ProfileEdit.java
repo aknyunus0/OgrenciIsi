@@ -29,6 +29,7 @@ import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
+import java.net.URL;
 import java.util.UUID;
 
 public class ProfileEdit extends AppCompatActivity {
@@ -123,6 +124,8 @@ public class ProfileEdit extends AppCompatActivity {
            if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
                imageUri = data.getData();
 
+
+
                imageView.setImageURI(imageUri);
                uploadPicture();
 
@@ -150,6 +153,7 @@ public class ProfileEdit extends AppCompatActivity {
                 pd.dismiss();
                 Snackbar.make(findViewById(android.R.id.content),"image Uploaded",Snackbar.LENGTH_SHORT).show();
 
+
             }
         }).addOnFailureListener(new OnFailureListener() {
             @Override
@@ -164,6 +168,7 @@ public class ProfileEdit extends AppCompatActivity {
                 pd.setMessage("yüzde"+(int)progresspercent+"%");
             }
         });
+        mDatabase.child("Profil Resmi").setValue(imageUri.toString());
 
         StorageReference mountainImagesRef = mStorageReferance.child("images/mountains.jpg");
 
