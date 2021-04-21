@@ -144,6 +144,7 @@ public class LoginPage extends AppCompatActivity {
                 User.userUniversity = snapshot.child("üniversite").getValue().toString();
                 User.userLocation = snapshot.child("konum").getValue().toString();
                 User.userAbout = snapshot.child("Hakkında").getValue().toString();
+                User.userprofileimage = snapshot.child("profilresmi").getValue().toString();
                 User.isSecretProfile = Boolean.parseBoolean(snapshot.child("Gizli mi?").getValue().toString());
 
 
