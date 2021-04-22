@@ -27,7 +27,7 @@
             android:padding="20dp">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/profile_image"
+                android:id="@+id/İlanVerenProfil"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:src="@drawable/profile"

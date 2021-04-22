@@ -1,12 +1,14 @@
 package com.DuzceBestTeam.ogrenciIsi;
 
 import android.content.Context;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -15,12 +17,16 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -35,6 +41,10 @@ public class HomePage_Fragment extends Fragment {
     RecyclerView recyclerView;
     Context context;
     SwipeRefreshLayout swipeRefresh;
+    StorageReference mStorageReference = FirebaseStorage.getInstance().getReference();
+    String ilanVerenProfilResmiLink;
+
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
@@ -110,12 +120,27 @@ public class HomePage_Fragment extends Fragment {
                     String ilanAranan = item.child("Aranan Özellikler").getValue().toString();
                     String ilanSonTarih = item.child("Son Başvuru Tarihi").getValue().toString();
                     String ilanPozisyon = item.child("Pozisyon").getValue().toString();
-
-                    //String isveren;
+                    String ilanVeren = item.child("İş Veren").getValue().toString();
                     String ilanCalismaTuru = item.child("Calışma Şekli").getValue().toString();
-                    //String ilanYayinTarihi
-                    ilanlar.add(new Ilan(ilanAdi, isTanimi, ilanPozisyon, ilanSonTarih, ilanCalismaTuru, ilanAranan, "İlan veren", "Yayın Tarihi"));
+                    String ilanYayinTarihi = item.child("yayın tarihi").getValue().toString();
 
+
+
+                    /*
+                    mStorageReference.child("image").child(ilanVeren).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful())
+                            {
+                                ilanVerenProfilResmiLink = task.getResult().toString();
+                                Toast.makeText(context,ilanVerenProfilResmiLink , Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                    */
+
+                    ilanlar.add(new Ilan(ilanAdi, isTanimi, ilanPozisyon, ilanSonTarih, ilanCalismaTuru, ilanAranan,
+                            ilanVeren, ilanYayinTarihi));
                 }
 
                 Collections.reverse(ilanlar);

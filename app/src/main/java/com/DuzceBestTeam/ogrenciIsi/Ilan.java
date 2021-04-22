@@ -13,13 +13,15 @@ public class Ilan {
     String ilanVeren;
     String ilanYayinTarihi;
 
-    public Ilan(String ilanAdi, String isTanimi, String pozisyon, String basvuruTarihi, String calismaSekli, String arananOzellikler, String ilanVeren, String ilanYayinTarihi) {
-        this.ilanBasligi = ilanAdi;
-        this.ilanTanimi = isTanimi;
-        this.ilanPozisyon = pozisyon;
-        this.ilanSonBasvuruTarih = basvuruTarihi;
-        this.ilanCalismaSekli = calismaSekli;
-        this.ilanArananOzellikler = arananOzellikler;
+
+    public Ilan(String ilanBasligi, String ilanTanimi, String ilanPozisyon, String ilanSonBasvuruTarih, String ilanCalismaSekli, String ilanArananOzellikler, String ilanVeren, String ilanYayinTarihi
+    ) {
+        this.ilanBasligi = ilanBasligi;
+        this.ilanTanimi = ilanTanimi;
+        this.ilanPozisyon = ilanPozisyon;
+        this.ilanSonBasvuruTarih = ilanSonBasvuruTarih;
+        this.ilanCalismaSekli = ilanCalismaSekli;
+        this.ilanArananOzellikler = ilanArananOzellikler;
         this.ilanVeren = ilanVeren;
         this.ilanYayinTarihi = ilanYayinTarihi;
     }
@@ -87,4 +89,5 @@ public class Ilan {
     public void setIlanYayinTarihi(String ilanYayinTarihi) {
         this.ilanYayinTarihi = ilanYayinTarihi;
     }
+
 }

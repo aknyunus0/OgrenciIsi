@@ -17,6 +17,8 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 
 public class newJobAdv extends AppCompatActivity  {
@@ -87,6 +89,10 @@ public class newJobAdv extends AppCompatActivity  {
                 userMap.put("Aranan Özellikler",jobNeeds);
                 userMap.put("İş Veren",userKey);
                 userMap.put("Calışma Şekli",Spinner_Text.getText().toString());
+
+                SimpleDateFormat formatter = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
+                Date date = new Date();
+                userMap.put("yayın tarihi", formatter.format(date));
 
 
                 mDatabase.child(jobKey).setValue(userMap);

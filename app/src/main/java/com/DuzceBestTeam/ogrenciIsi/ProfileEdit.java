@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
@@ -56,6 +57,14 @@ public class ProfileEdit extends AppCompatActivity {
 
         setUserInfoToEdit();
 
+        //var olan profil resmini yükleme
+        Uri uri=Uri.parse(User.userprofileimage);
+        Glide
+                .with(getApplicationContext())
+                .load(uri) // the uri you got from Firebase
+                .centerCrop()
+                .into(imageView); //Your imageView variable
+
 
         ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(this,
             R.array.egitimduzeyi, android.R.layout.simple_spinner_item);
@@ -70,8 +79,6 @@ public class ProfileEdit extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-
-
                 if( gizliswitch.isChecked() ){
                     User.isSecretProfile=true;
                 }
@@ -81,7 +88,7 @@ public class ProfileEdit extends AppCompatActivity {
                 mDatabase.child("Ad").setValue(editname.getText().toString());
                 mDatabase.child("Bölüm").setValue(BolumEdit.getText().toString());
                 mDatabase.child("Gizli mi?").setValue(User.isSecretProfile);
-                mDatabase.child("Hakkında").setValue(editname.getText().toString());
+                mDatabase.child("Hakkında").setValue(HakkimdaEdit.getText().toString());
                 mDatabase.child("Soyad").setValue(editsurname.getText().toString());
                 mDatabase.child("eğitim düzeyi").setValue(spinner.getSelectedItem().toString());
                 mDatabase.child("konum").setValue(KonumEdit.getText().toString());
@@ -90,10 +97,10 @@ public class ProfileEdit extends AppCompatActivity {
 
                 User.userLocation=KonumEdit.getText().toString();
                 User.userUniversity=UniversiteEdit.getText().toString();
-                 User.userDepartman=BolumEdit.getText().toString();
-                 User.userGrade=spinner.getSelectedItem().toString();
-              User.userAbout=HakkimdaEdit.getText().toString();
-               User.userExpert=UzamanlikEdit.getText().toString();
+                User.userDepartman=BolumEdit.getText().toString();
+                User.userGrade=spinner.getSelectedItem().toString();
+                User.userAbout=HakkimdaEdit.getText().toString();
+                User.userExpert=UzamanlikEdit.getText().toString();
 
 
 
@@ -109,12 +116,12 @@ public class ProfileEdit extends AppCompatActivity {
 
                 ChoosePicture();
 
-
                 mStorageReferance.child("image").child(mAuth.getCurrentUser().getUid()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
                     @Override
                     public void onComplete(@NonNull Task<Uri> task) {
                       //  Toast.makeText(getApplicationContext(),task.getResult().toString(),Toast.LENGTH_LONG).show();
                         mDatabase.child("Profil Resmi").setValue(task.getResult().toString());
+                        User.userprofileimage = task.getResult().toString();
                     }
                 });
             }
@@ -134,22 +141,12 @@ public class ProfileEdit extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-
-
            if (requestCode == 1 && resultCode == RESULT_OK && data != null && data.getData() != null) {
                imageUri = data.getData();
-
-
-
                imageView.setImageURI(imageUri);
                uploadPicture();
 
            }
-
-
-
-
-
     }
 
     private void uploadPicture() {
@@ -157,8 +154,6 @@ public class ProfileEdit extends AppCompatActivity {
         pd.setTitle("Fotoğraf Yükleniyor...");
         pd.show();
         final  String randomkey= FirebaseAuth.getInstance().getCurrentUser().getUid();
-
-
 
 
         StorageReference mountainsRef = mStorageReferance.child("image/"+randomkey);
@@ -183,14 +178,6 @@ public class ProfileEdit extends AppCompatActivity {
                 pd.setMessage("yüzde"+(int)progresspercent+"%");
             }
         });
-
-
-        StorageReference mountainImagesRef = mStorageReferance.child("images/mountains.jpg");
-
-
-// While the file names are the same, the references point to different files
-        mountainsRef.getName().equals(mountainImagesRef.getName());    // true
-        mountainsRef.getPath().equals(mountainImagesRef.getPath());    // false
 
     }
 

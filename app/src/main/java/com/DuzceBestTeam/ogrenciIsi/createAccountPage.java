@@ -37,8 +37,8 @@ public class createAccountPage extends AppCompatActivity {
     ProgressDialog registerProgress;
     DatabaseReference mDatabase;
     StorageReference mStorageReferance;
-      String randomkey;
-
+    String userKey;
+    String imagePath;
 
 
 
@@ -77,7 +77,6 @@ public class createAccountPage extends AppCompatActivity {
             registerProgress.show();
             register_User(Ad,Soyad,Email,Sifre);
 
-
         }
 
 
@@ -88,20 +87,20 @@ public class createAccountPage extends AppCompatActivity {
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
 
-
                     registerProgress.dismiss();
                     mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
                                 String User_id=mAuth.getCurrentUser().getUid();
-                                randomkey= mAuth.getCurrentUser().getUid();
+                                userKey= mAuth.getCurrentUser().getUid();
                                 String UserControlName = "User_Other";
 
                             if(Email.contains("edu.tr")&& Email.contains("@ogr")){
                                 UserControlName="User_Ogrenciler";
                             }
-                                 mDatabase=FirebaseDatabase.getInstance().getReference().child(UserControlName).child(User_id);
+
+                            mDatabase=FirebaseDatabase.getInstance().getReference().child(UserControlName).child(User_id);
                                 HashMap<String,String> userMap=new HashMap<>();
                                 userMap.put("Ad",ad);
                                 userMap.put("Soyad",Soyad);
@@ -116,7 +115,6 @@ public class createAccountPage extends AppCompatActivity {
                                 userMap.put("üniversite","");
                                 userMap.put("Profil Resmi","");
 
-
                                 mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -129,19 +127,12 @@ public class createAccountPage extends AppCompatActivity {
                                     }
                                 });
                                 uploadPicture();
-
-
                             }
                             else {
                                 Toast.makeText(createAccountPage.this,task.getException().getMessage(),Toast.LENGTH_LONG).show();
                             }
-
-
                         }
                     });
-
-
-
 
                 }
                 else {
@@ -149,31 +140,32 @@ public class createAccountPage extends AppCompatActivity {
                     Toast.makeText(getApplicationContext(),"hata:"+task.getException().getMessage(),Toast.LENGTH_LONG).show();
                 }
 
-
             }
         });
+
     }
     private void uploadPicture() {
         Uri uri=Uri.parse("android.resource://"+R.class.getPackage().getName()+"/" +R.drawable.profile);
 
        // StorageReference mountainsRef = mStorageReferance.child("image/"+randomkey);
-        mStorageReferance.child("image/"+randomkey).putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+        mStorageReferance.child("image/"+userKey).putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
                 Snackbar.make(findViewById(android.R.id.content),"image Uploaded",Snackbar.LENGTH_SHORT).show();
-            }
-        }) ;
-        mStorageReferance.child("image").child(mAuth.getCurrentUser().getUid()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-            @Override
-            public void onComplete(@NonNull Task<Uri> task) {
-                //  Toast.makeText(getApplicationContext(),task.getResult().toString(),Toast.LENGTH_LONG).show();
-                mDatabase.child("Profil Resmi").setValue(task.getResult().toString());
+
+                mStorageReferance.child("image").child(userKey).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        mDatabase.child("Profil Resmi").setValue(task.getResult().toString());
+                    }
+                });
             }
         });
 
-        StorageReference mountainImagesRef = mStorageReferance.child("images/mountains.jpg");
-
     }
+
+
+
     void initComponents(){
         Cr_txtEmail = findViewById(R.id.Cr_txtEmail); // id değerine göre bulup atama yapılır
         Cr_txtAd = findViewById(R.id.Cr_txtAd); // id değerine göre bulup atama yapılır
