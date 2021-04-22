@@ -1,16 +1,33 @@
 package com.DuzceBestTeam.ogrenciIsi;
 
 import android.content.Context;
+import android.net.Uri;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
+
+import com.bumptech.glide.Glide;
+import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.Task;
+import com.google.android.material.imageview.ShapeableImageView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 
@@ -18,6 +35,8 @@ import java.util.ArrayList;
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
 
     ArrayList<Ilan> ilanlar = new ArrayList<>();
+    StorageReference mStorageReference;
+    DatabaseReference mDatabaseReference;
 
     public RVAdapter(ArrayList<Ilan> ilanlar) {
         this.ilanlar = ilanlar;
@@ -35,7 +54,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
 
     //Her bir görünümün içeriği belirlenir
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
 
         holder.ilanbaslik.setText(ilanlar.get(position).getIlanBasligi());
         holder.ilantanimi.setText(ilanlar.get(position).getIlanTanimi());
@@ -43,7 +62,29 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         holder.ilanAciklama.setText(ilanlar.get(position).getIlanArananOzellikler());
         holder.ilansontarih.setText(ilanlar.get(position).getIlanSonBasvuruTarih());
         holder.ilanCalismaTuru.setText(ilanlar.get(position).getIlanCalismaSekli());
+
+
+        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("User_Other").child(ilanlar.get(position).getIlanVeren());
+        mDatabaseReference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Uri uri = Uri.parse(snapshot.child("Profil Resmi").toString());
+                Glide.with(holder.İlanVerenProfil.getContext()).load(uri).centerCrop().into(holder.İlanVerenProfil);
+            }
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+            }
+        });
+
+
+        //Uri uri = Uri.parse(ilanlar.get(position).getIlanVerenProfilResmi());
+
+        //Glide.with(holder.İlanVerenProfil.getContext()).load(uri).centerCrop().into(holder.İlanVerenProfil);
+
+
         holder.linearLayout.setTag(holder);
+
+
 
     }
 
@@ -60,6 +101,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         Button btnBasvur;
         LinearLayout linearLayout;
         TextView ilanIsVeren, ilanCalismaTuru, ilanYayinTarihi;
+        ShapeableImageView İlanVerenProfil;
 
         Button saklaGoster;
         ConstraintLayout constraintDetay;
@@ -77,6 +119,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
             ilanIsVeren = itemView.findViewById(R.id.ilanIsVeren);
             ilanCalismaTuru = itemView.findViewById(R.id.ilanCalismaTuru);
             ilanYayinTarihi = itemView.findViewById(R.id.ilanYayinTarihi);
+            İlanVerenProfil =  itemView.findViewById(R.id.İlanVerenProfil);
 
 
             btnBasvur = itemView.findViewById(R.id.btnBasvur);
