@@ -20,4 +20,5 @@ public class User {
     static String userDatabase;
     static ArrayList<Ilan> userIlanlar;
     static String userprofileimage;
+    static String profileuriurl;
 }

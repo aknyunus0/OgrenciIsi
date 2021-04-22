@@ -17,8 +17,10 @@ import android.widget.Spinner;
 import android.widget.Switch;
 import android.widget.Toast;
 
+import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.android.gms.tasks.Task;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.FirebaseAuth;
@@ -93,15 +95,28 @@ public class ProfileEdit extends AppCompatActivity {
               User.userAbout=HakkimdaEdit.getText().toString();
                User.userExpert=UzamanlikEdit.getText().toString();
 
+
+
                 startActivity(new Intent(ProfileEdit.this,AnaSayfa.class));
                 ProfileEdit.this.finish();
 
             }
         });
+
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
                 ChoosePicture();
+
+
+                mStorageReferance.child("image").child(mAuth.getCurrentUser().getUid()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                      //  Toast.makeText(getApplicationContext(),task.getResult().toString(),Toast.LENGTH_LONG).show();
+                        mDatabase.child("Profil Resmi").setValue(task.getResult().toString());
+                    }
+                });
             }
         });
 
@@ -168,7 +183,7 @@ public class ProfileEdit extends AppCompatActivity {
                 pd.setMessage("yüzde"+(int)progresspercent+"%");
             }
         });
-        mDatabase.child("Profil Resmi").setValue(imageUri.toString());
+
 
         StorageReference mountainImagesRef = mStorageReferance.child("images/mountains.jpg");
 

@@ -11,7 +11,17 @@
     android:orientation="vertical"
 
     tools:context=".LoginPage">
+    <ImageView
+        android:id="@+id/loginprofile"
+        android:layout_width="90dp"
+        android:layout_height="90dp"
+        android:src="@drawable/profile"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView"
+        android:layout_marginTop="20dp"
 
+        />
 
 
 
