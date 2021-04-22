@@ -14,7 +14,6 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
-import com.google.android.gms.tasks.OnFailureListener;
 import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.snackbar.Snackbar;
@@ -23,7 +22,6 @@ import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.OnProgressListener;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 
@@ -102,18 +100,31 @@ public class createAccountPage extends AppCompatActivity {
 
                             mDatabase=FirebaseDatabase.getInstance().getReference().child(UserControlName).child(User_id);
                                 HashMap<String,String> userMap=new HashMap<>();
+                            if(UserControlName=="User_Ogrenciler"){
+                                    userMap.put("Ad",ad);
+                                    userMap.put("Soyad",Soyad);
+                                    userMap.put("EMail",Email);
+                                    userMap.put("Sifre",Sifre);
+                                    userMap.put("Bölüm","");
+                                    userMap.put("Gizli mi?","false");
+                                    userMap.put("Hakkında","");
+                                    userMap.put("eğitim düzeyi","");
+                                    userMap.put("konum","");
+                                    userMap.put("uzmanlık","");
+                                    userMap.put("üniversite","");
+                                    userMap.put("Profil Resmi","");
+                                }
+                            else if(UserControlName=="User_Other"){
                                 userMap.put("Ad",ad);
                                 userMap.put("Soyad",Soyad);
                                 userMap.put("EMail",Email);
                                 userMap.put("Sifre",Sifre);
-                                userMap.put("Bölüm","");
-                                userMap.put("Gizli mi?","false");
                                 userMap.put("Hakkında","");
-                                userMap.put("eğitim düzeyi","");
                                 userMap.put("konum","");
                                 userMap.put("uzmanlık","");
-                                userMap.put("üniversite","");
                                 userMap.put("Profil Resmi","");
+                                userMap.put("Sirket","");
+                            }
 
                                 mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override

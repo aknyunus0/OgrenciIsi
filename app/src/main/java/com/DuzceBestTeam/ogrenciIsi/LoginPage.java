@@ -1,13 +1,7 @@
 package com.DuzceBestTeam.ogrenciIsi;
 
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
-
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.AlertDialog;
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
@@ -17,13 +11,14 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import androidx.annotation.NonNull;
+import androidx.appcompat.app.AppCompatActivity;
+
 import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
-import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
-import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -61,6 +56,7 @@ public class LoginPage extends AppCompatActivity {
 
             userControlMail = mAuth.getCurrentUser().getEmail();
             setUserinfo();
+
            startActivity(new Intent(LoginPage.this,AnaSayfa.class));
             this.finish();
       }
@@ -149,14 +145,21 @@ public class LoginPage extends AppCompatActivity {
                 User.userSurName = snapshot.child("Soyad").getValue().toString();
                 User.userMail = snapshot.child("EMail").getValue().toString();
                 User.userPassword = snapshot.child("Sifre").getValue().toString();
-                User.userDepartman = snapshot.child("Bölüm").getValue().toString();
-                User.userExpert = snapshot.child("uzmanlık").getValue().toString();
-                User.userGrade = snapshot.child("eğitim düzeyi").getValue().toString();
-                User.userUniversity = snapshot.child("üniversite").getValue().toString();
                 User.userLocation = snapshot.child("konum").getValue().toString();
                 User.userAbout = snapshot.child("Hakkında").getValue().toString();
+                User.userExpert = snapshot.child("uzmanlık").getValue().toString();
                 User.userprofileimage = snapshot.child("Profil Resmi").getValue().toString();
-                User.isSecretProfile = Boolean.parseBoolean(snapshot.child("Gizli mi?").getValue().toString());
+                if(User.isStudent==true){
+                    User.userDepartman = snapshot.child("Bölüm").getValue().toString();
+                    User.userGrade = snapshot.child("eğitim düzeyi").getValue().toString();
+                    User.userUniversity = snapshot.child("üniversite").getValue().toString();
+                    User.isSecretProfile = Boolean.parseBoolean(snapshot.child("Gizli mi?").getValue().toString());
+                }
+                else{
+                    User.userCompany = snapshot.child("Sirket").getValue().toString();
+                }
+
+
 
 
              /*   storageReference.child("image").child(mAuth.getCurrentUser().getUid()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {

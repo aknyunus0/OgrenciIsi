@@ -1,7 +1,5 @@
 package com.DuzceBestTeam.ogrenciIsi;
 
-import com.google.android.material.imageview.ShapeableImageView;
-
 import java.util.ArrayList;
 
 public class User {
@@ -21,4 +19,5 @@ public class User {
     static ArrayList<Ilan> userIlanlar;
     static String userprofileimage;
     static String profileuriurl;
+    static String userCompany;
 }

@@ -15,7 +15,8 @@ public class AnaSayfa extends AppCompatActivity {
 
     Fragment fragment = null;
 
-    HomePage_Fragment HomePage = new HomePage_Fragment();
+
+
 
     public AnaSayfa(Fragment fragment1) {
         fragment = fragment1;
@@ -29,7 +30,13 @@ public class AnaSayfa extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ana_sayfa);
-        loadFragment(HomePage);
+        if(User.isStudent==true){
+            HomePage_Fragment HomePage = new HomePage_Fragment();
+        loadFragment(HomePage);}
+        else{
+            other_homepage_fragment otherHomePage = new other_homepage_fragment();
+            loadFragment(otherHomePage);
+        }
         BottomNavigationView navView = findViewById(R.id.bottomNavigationView);
         navView.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
     }
@@ -54,7 +61,7 @@ public void AddJobAdv_onClick(View v){
 
         @Override
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
-
+        if(User.isStudent==true) {
             switch (item.getItemId()) {
                 case R.id.home:
                     fragment = new HomePage_Fragment();
@@ -69,7 +76,27 @@ public void AddJobAdv_onClick(View v){
                     fragment = new Profile_Fragment();
                     break;
             }
+        }
+        else{
+            switch (item.getItemId()) {
+                case R.id.home:
+                    fragment = new other_homepage_fragment();
+                    break;
+                case R.id.Search:
+                    fragment = new other_search_fragment();
+                    break;
+                case R.id.Notification:
+                    fragment = new other_notification_fragment();
+                    break;
+                case R.id.Profile:
+                    fragment = new Profile_Other();
+                    break;
+            }
+        }
             return loadFragment(fragment);
         }
+
+
+
     };
 }
