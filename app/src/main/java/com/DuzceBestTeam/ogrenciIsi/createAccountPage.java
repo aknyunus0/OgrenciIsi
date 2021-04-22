@@ -2,6 +2,7 @@ package com.DuzceBestTeam.ogrenciIsi;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -13,11 +14,18 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.snackbar.Snackbar;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.OnProgressListener;
+import com.google.firebase.storage.StorageReference;
+import com.google.firebase.storage.UploadTask;
 
 import java.util.HashMap;
 
@@ -28,6 +36,9 @@ public class createAccountPage extends AppCompatActivity {
     FirebaseAuth mAuth;
     ProgressDialog registerProgress;
     DatabaseReference mDatabase;
+    StorageReference mStorageReferance;
+      String randomkey;
+
 
 
 
@@ -76,12 +87,15 @@ public class createAccountPage extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<AuthResult> task) {
                 if(task.isSuccessful()){
+
+
                     registerProgress.dismiss();
                     mAuth.getCurrentUser().sendEmailVerification().addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override
                         public void onComplete(@NonNull Task<Void> task) {
                             if(task.isSuccessful()){
                                 String User_id=mAuth.getCurrentUser().getUid();
+                                randomkey= mAuth.getCurrentUser().getUid();
                                 String UserControlName = "User_Other";
 
                             if(Email.contains("edu.tr")&& Email.contains("@ogr")){
@@ -102,6 +116,7 @@ public class createAccountPage extends AppCompatActivity {
                                 userMap.put("üniversite","");
                                 userMap.put("Profil Resmi","");
 
+
                                 mDatabase.setValue(userMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                                     @Override
                                     public void onComplete(@NonNull Task<Void> task) {
@@ -113,6 +128,7 @@ public class createAccountPage extends AppCompatActivity {
 
                                     }
                                 });
+                                uploadPicture();
 
 
                             }
@@ -137,6 +153,27 @@ public class createAccountPage extends AppCompatActivity {
             }
         });
     }
+    private void uploadPicture() {
+        Uri uri=Uri.parse("android.resource://"+R.class.getPackage().getName()+"/" +R.drawable.profile);
+
+       // StorageReference mountainsRef = mStorageReferance.child("image/"+randomkey);
+        mStorageReferance.child("image/"+randomkey).putFile(uri).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
+            @Override
+            public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
+                Snackbar.make(findViewById(android.R.id.content),"image Uploaded",Snackbar.LENGTH_SHORT).show();
+            }
+        }) ;
+        mStorageReferance.child("image").child(mAuth.getCurrentUser().getUid()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+            @Override
+            public void onComplete(@NonNull Task<Uri> task) {
+                //  Toast.makeText(getApplicationContext(),task.getResult().toString(),Toast.LENGTH_LONG).show();
+                mDatabase.child("Profil Resmi").setValue(task.getResult().toString());
+            }
+        });
+
+        StorageReference mountainImagesRef = mStorageReferance.child("images/mountains.jpg");
+
+    }
     void initComponents(){
         Cr_txtEmail = findViewById(R.id.Cr_txtEmail); // id değerine göre bulup atama yapılır
         Cr_txtAd = findViewById(R.id.Cr_txtAd); // id değerine göre bulup atama yapılır
@@ -144,6 +181,7 @@ public class createAccountPage extends AppCompatActivity {
         Cr_txtSoyad=findViewById(R.id.Cr_txtSoyad);
         mAuth=FirebaseAuth.getInstance();
         registerProgress=new ProgressDialog(this);
+        mStorageReferance= FirebaseStorage.getInstance().getReference();
 
     }
 

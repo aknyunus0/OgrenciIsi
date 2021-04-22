@@ -7,15 +7,20 @@ import android.content.Intent;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
+
+import android.net.Uri;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.AuthResult;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
@@ -24,6 +29,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -38,6 +45,9 @@ public class LoginPage extends AppCompatActivity {
     DatabaseReference mDatabaseReference;
     ArrayList<Ilan> ilanlar;
     String userControlMail;
+    StorageReference storageReference;
+    ImageView imageView;
+
 
 
     @Override
@@ -51,7 +61,7 @@ public class LoginPage extends AppCompatActivity {
 
             userControlMail = mAuth.getCurrentUser().getEmail();
             setUserinfo();
-            startActivity(new Intent(LoginPage.this,AnaSayfa.class));
+           startActivity(new Intent(LoginPage.this,AnaSayfa.class));
             this.finish();
       }
 
@@ -76,8 +86,9 @@ public class LoginPage extends AppCompatActivity {
                                 if(mAuth.getCurrentUser().isEmailVerified()){
                                     userControlMail = userMail.getText().toString();
                                     setUserinfo();
-                                    startActivity(new Intent(LoginPage.this,AnaSayfa.class));
-                                    LoginPage.this.finish();
+
+                                  startActivity(new Intent(LoginPage.this,AnaSayfa.class));
+                                  LoginPage.this.finish();
                                 }
                                 else {
                                     Toast.makeText(LoginPage.this,"Lütfen E-mailinizi doğrulayın",Toast.LENGTH_LONG).show();
@@ -148,6 +159,20 @@ public class LoginPage extends AppCompatActivity {
                 User.isSecretProfile = Boolean.parseBoolean(snapshot.child("Gizli mi?").getValue().toString());
 
 
+             /*   storageReference.child("image").child(mAuth.getCurrentUser().getUid()).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                    @Override
+                    public void onComplete(@NonNull Task<Uri> task) {
+                        //  Toast.makeText(getApplicationContext(),task.getResult().toString(),Toast.LENGTH_LONG).show();
+                     User.profileuriurl=task.getResult().toString();
+                    }
+                });*/
+
+                Uri uri=Uri.parse(User.userprofileimage);
+                Glide
+                        .with(getApplicationContext())
+                        .load(uri) // the uri you got from Firebase
+                        .centerCrop()
+                        .into(imageView); //Your imageView variable
 
                 Iterator<DataSnapshot> items = snapshot.child("Ilanlarim").getChildren().iterator();
 
@@ -175,6 +200,8 @@ public class LoginPage extends AppCompatActivity {
         registerProgress=new ProgressDialog(this);
         mAuth=FirebaseAuth.getInstance();
         mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+        storageReference= FirebaseStorage.getInstance().getReference();
+        imageView=findViewById(R.id.loginprofile);
     }
 
 
