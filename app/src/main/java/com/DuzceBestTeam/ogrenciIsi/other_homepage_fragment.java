@@ -1,41 +1,54 @@
 package com.DuzceBestTeam.ogrenciIsi;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link other_homepage_fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
+
+
 public class other_homepage_fragment extends Fragment {
+    FirebaseAuth mAuth;
+    DatabaseReference mDatabase;
+    ArrayList<Ilan> ilanlar;
+    RecyclerView recyclerView;
+    Context context;
+    SwipeRefreshLayout swipeRefresh;
+    StorageReference mStorageReference = FirebaseStorage.getInstance().getReference();
+    String ilanVerenProfilResmiLink;
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
+
     private String mParam1;
     private String mParam2;
 
     public other_homepage_fragment() {
-        // Required empty public constructor
+
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment other_homepage_fragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static other_homepage_fragment newInstance(String param1, String param2) {
         other_homepage_fragment fragment = new other_homepage_fragment();
         Bundle args = new Bundle();
@@ -57,7 +70,73 @@ public class other_homepage_fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_other_homepage, container, false);
+        View view = inflater.inflate(R.layout.fragment_other_homepage, container, false);
+        context = view.getContext().getApplicationContext();
+        recyclerView = view.findViewById(R.id.other_recyclerView);
+        swipeRefresh = view.findViewById(R.id.other_swipRefresh);
+
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                verileriCek();
+                swipeRefresh.setRefreshing(false);
+            }
+        });
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        ilanlar =  new ArrayList<>();
+
+        verileriCek();
+
+
+
+
+        return view;
+    }
+    private void verileriCek() {
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Ilanlar");
+        mDatabase.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot snapshot) {
+                Iterator<DataSnapshot> items = snapshot.getChildren().iterator();
+                ilanlar.clear();
+                while (items.hasNext())
+                {
+                    DataSnapshot item = items.next();
+                    String ilanAdi = item.child("Ilan Başlığı").getValue().toString();
+                    String isTanimi = item.child("İş Tanımı").getValue().toString();
+                    String ilanVeren = item.child("İş Veren").getValue().toString();
+                    String ilanYayinTarihi = item.child("yayın tarihi").getValue().toString();
+
+
+
+                    /*
+                    mStorageReference.child("image").child(ilanVeren).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
+                        @Override
+                        public void onComplete(@NonNull Task<Uri> task) {
+                            if (task.isSuccessful())
+                            {
+                                ilanVerenProfilResmiLink = task.getResult().toString();
+                                Toast.makeText(context,ilanVerenProfilResmiLink , Toast.LENGTH_LONG).show();
+                            }
+                        }
+                    });
+                    */
+
+                    ilanlar.add(new Ilan(ilanAdi,isTanimi,ilanVeren,ilanYayinTarihi));
+                }
+
+                Collections.reverse(ilanlar);
+
+                recyclerView.setAdapter(new Ogrenci_RVAdapter(ilanlar));
+
+                mDatabase.removeEventListener(this);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError error) {
+
+            }
+        });
     }
 }
