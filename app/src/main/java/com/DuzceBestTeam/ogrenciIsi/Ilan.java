@@ -1,8 +1,5 @@
 package com.DuzceBestTeam.ogrenciIsi;
 
-import java.util.ArrayList;
-import java.util.List;
-
 public class Ilan {
     String ilanBasligi;
     String ilanTanimi;
@@ -13,6 +10,13 @@ public class Ilan {
     String ilanVeren;
     String ilanYayinTarihi;
 
+    public Ilan(String ilanBasligi, String ilanTanimi,   String ilanVeren, String ilanYayinTarihi
+    ) {
+        this.ilanBasligi = ilanBasligi;
+        this.ilanTanimi = ilanTanimi;
+        this.ilanVeren = ilanVeren;
+        this.ilanYayinTarihi = ilanYayinTarihi;
+    }
 
     public Ilan(String ilanBasligi, String ilanTanimi, String ilanPozisyon, String ilanSonBasvuruTarih, String ilanCalismaSekli, String ilanArananOzellikler, String ilanVeren, String ilanYayinTarihi
     ) {
