@@ -13,11 +13,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".recyclerview_other_item"></activity>
+        <activity android:name=".Ogrenci_New_Job"></activity>
+        <activity android:name=".recyclerview_other_item" />
         <activity android:name=".ProfileEdit_Other" />
         <activity android:name=".ProfileEdit" />
         <activity android:name=".Recycle_Item" />
-        <activity android:name=".newJobAdv" />
+        <activity android:name=".Other_New_Job" />
         <activity android:name=".createAccountPage" />
         <activity android:name=".LoginPage">
             <intent-filter>

@@ -43,6 +43,7 @@
                 android:layout_height="wrap_content"
                 android:text="İlan Adı"
                 android:textSize="24dp"
+                android:textStyle="bold"
                 app:layout_constraintLeft_toRightOf="@+id/İlanVerenProfil"
                 android:layout_marginLeft="20dp"
                 app:layout_constraintTop_toTopOf="parent"/>
@@ -132,7 +133,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/constraint_detay"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="20dp"
@@ -144,19 +145,20 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="İlan Tanımı"
+                android:textStyle="bold"
                 app:layout_constraintTop_toTopOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/ilanTanimi"
                 app:layout_constraintLeft_toLeftOf="parent"
-                android:layout_marginBottom="5dp"/>
+                android:layout_marginBottom="5dp"
+                android:layout_marginTop="5dp"/>
 
             <TextView
                 android:id="@+id/ilanTanimi"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="İlan Tanımı"
-                android:maxLines="3"
                 android:textSize="14dp"
-                android:layout_marginBottom="5dp"
+                android:layout_marginBottom="10dp"
                 app:layout_constraintTop_toBottomOf="@+id/txtilan"
                 app:layout_constraintBottom_toTopOf="@id/txtAranan"/>
 
@@ -164,6 +166,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="#000000"
+                android:text="-----"
                 app:layout_constraintBottom_toBottomOf="@id/ilanTanimi"
                 app:layout_constraintTop_toTopOf="@id/txtAranan"
                 android:layout_marginTop="15dp"
@@ -175,7 +178,9 @@
                 android:layout_height="wrap_content"
                 android:text="Aranan Özellikler"
                 android:textSize="14dp"
+                android:textStyle="bold"
                 android:layout_marginBottom="5dp"
+                android:layout_marginTop="10dp"
                 app:layout_constraintTop_toBottomOf="@+id/ilanTanimi" />
             <TextView
                 android:id="@+id/ilanAciklama"

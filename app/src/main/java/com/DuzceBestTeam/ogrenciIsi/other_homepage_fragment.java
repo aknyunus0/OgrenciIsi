@@ -5,14 +5,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
 import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -35,6 +38,7 @@ public class other_homepage_fragment extends Fragment {
     SwipeRefreshLayout swipeRefresh;
     StorageReference mStorageReference = FirebaseStorage.getInstance().getReference();
     String ilanVerenProfilResmiLink;
+
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -94,7 +98,7 @@ public class other_homepage_fragment extends Fragment {
         return view;
     }
     private void verileriCek() {
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Ilanlar");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Ogrenci_Ilanlar");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -105,7 +109,7 @@ public class other_homepage_fragment extends Fragment {
                     DataSnapshot item = items.next();
                     String ilanAdi = item.child("Ilan Başlığı").getValue().toString();
                     String isTanimi = item.child("İş Tanımı").getValue().toString();
-                    String ilanVeren = item.child("İş Veren").getValue().toString();
+                    String ilanVerenKey = item.child("İş Veren").getValue().toString();
                     String ilanYayinTarihi = item.child("yayın tarihi").getValue().toString();
 
 
@@ -123,7 +127,7 @@ public class other_homepage_fragment extends Fragment {
                     });
                     */
 
-                    ilanlar.add(new Ilan(ilanAdi,isTanimi,ilanVeren,ilanYayinTarihi));
+                    ilanlar.add(new Ilan(ilanAdi,isTanimi, "İlan Verenin Adı Gelecek \n" + ilanVerenKey,ilanYayinTarihi));
                 }
 
                 Collections.reverse(ilanlar);
