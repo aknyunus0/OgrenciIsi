@@ -106,7 +106,7 @@ public class HomePage_Fragment extends Fragment {
     }
 
     private void verileriCek() {
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Ilanlar");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("Other_Ilanlar");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
@@ -123,8 +123,6 @@ public class HomePage_Fragment extends Fragment {
                     String ilanVeren = item.child("İş Veren").getValue().toString();
                     String ilanCalismaTuru = item.child("Calışma Şekli").getValue().toString();
                     String ilanYayinTarihi = item.child("yayın tarihi").getValue().toString();
-
-
 
                     /*
                     mStorageReference.child("image").child(ilanVeren).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {

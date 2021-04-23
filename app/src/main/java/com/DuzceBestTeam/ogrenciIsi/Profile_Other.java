@@ -16,11 +16,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Profile_Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+
 public class Profile_Other extends Fragment {
     private  Button other_editprofile;
     private Context context;
@@ -46,15 +42,7 @@ public class Profile_Other extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Profile_Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static Profile_Other newInstance(String param1, String param2) {
         Profile_Other fragment = new Profile_Other();
         Bundle args = new Bundle();
@@ -126,8 +114,6 @@ public class Profile_Other extends Fragment {
         });
 
         return view;
-
-
     }
 
 }
