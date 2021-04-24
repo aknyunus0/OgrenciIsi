@@ -52,7 +52,7 @@ public class LoginPage extends AppCompatActivity {
 
         initComponents(); // onCreate içinde yazılarak uygulama açılırken tüm elemanlar arka planda tutulur
 
-      if(mAuth.getCurrentUser() != null && mAuth.getCurrentUser().isEmailVerified()){
+     if(mAuth.getCurrentUser() != null && mAuth.getCurrentUser().isEmailVerified()){
 
             userControlMail = mAuth.getCurrentUser().getEmail();
             setUserinfo();
@@ -141,7 +141,7 @@ public class LoginPage extends AppCompatActivity {
         mDatabaseReference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
-                User.userName = snapshot.child("Ad").getValue().toString();
+               User.userName = snapshot.child("Ad").getValue().toString();
                 User.userSurName = snapshot.child("Soyad").getValue().toString();
                 User.userMail = snapshot.child("EMail").getValue().toString();
                 User.userPassword = snapshot.child("Sifre").getValue().toString();

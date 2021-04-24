@@ -34,7 +34,9 @@
                 android:src="@drawable/profile"
                 app:layout_constraintLeft_toLeftOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView" />
+                app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView"
+
+                />
 
             <TextView
                 android:id="@+id/ilanBaslik"

@@ -1,6 +1,7 @@
 package com.DuzceBestTeam.ogrenciIsi;
 
 import android.net.Uri;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -46,28 +47,17 @@ public class Ogrenci_RVAdapter extends RecyclerView.Adapter<Ogrenci_RVAdapter.Vi
     @Override
     public void onBindViewHolder(@NonNull final Ogrenci_RVAdapter.ViewHolder holder, final int position) {
 
+
+
         holder.ilanbaslik.setText(ilanlar.get(position).getIlanBasligi());
         holder.ilantanimi.setText(ilanlar.get(position).getIlanTanimi());
         holder.ilanYayinTarihi.setText(ilanlar.get(position).getIlanYayinTarihi());
         holder.ilanSahibi.setText(ilanlar.get(position).getIlanVeren());
 
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("User_Other").child(ilanlar.get(position).getIlanVeren());
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Uri uri = Uri.parse(snapshot.child("Profil Resmi").toString());
-                Glide.with(holder.İlanVerenProfil.getContext()).load(uri).centerCrop().into(holder.İlanVerenProfil);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
+        Uri uri = Uri.parse(ilanlar.get(position).getProfilPic());
 
-
-        //Uri uri = Uri.parse(ilanlar.get(position).getIlanVerenProfilResmi());
-
-        //Glide.with(holder.İlanVerenProfil.getContext()).load(uri).centerCrop().into(holder.İlanVerenProfil);
+        Glide.with(holder.İlanVerenProfil.getContext()).load(uri).centerCrop().into(holder.İlanVerenProfil);
 
 
         holder.linearLayout.setTag(holder);
@@ -91,6 +81,17 @@ public class Ogrenci_RVAdapter extends RecyclerView.Adapter<Ogrenci_RVAdapter.Vi
 
         Button saklaGoster;
         ConstraintLayout constraintDetay;
+
+        public String UserNameReturn(String User_Id){
+            final String[] Ad = new String[1];
+            final String Soyad;
+
+
+
+            return ilanSahibi.getText().toString();
+
+
+        }
 
 
 
@@ -123,6 +124,8 @@ public class Ogrenci_RVAdapter extends RecyclerView.Adapter<Ogrenci_RVAdapter.Vi
                     }
                 }
             });
+
+
 
         }
     }

@@ -1,7 +1,9 @@
 package com.DuzceBestTeam.ogrenciIsi;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +16,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.ChildEventListener;
 import com.google.firebase.database.DataSnapshot;
@@ -31,13 +34,14 @@ import java.util.Iterator;
 
 public class other_homepage_fragment extends Fragment {
     FirebaseAuth mAuth;
-    DatabaseReference mDatabase;
+    DatabaseReference mDatabase,mDatabase1;
     ArrayList<Ilan> ilanlar;
     RecyclerView recyclerView;
     Context context;
     SwipeRefreshLayout swipeRefresh;
     StorageReference mStorageReference = FirebaseStorage.getInstance().getReference();
     String ilanVerenProfilResmiLink;
+
 
 
 
@@ -75,9 +79,12 @@ public class other_homepage_fragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_other_homepage, container, false);
+        View view2 = inflater.inflate(R.layout.activity_recyclerview_other_item, container, false);
         context = view.getContext().getApplicationContext();
         recyclerView = view.findViewById(R.id.other_recyclerView);
         swipeRefresh = view.findViewById(R.id.other_swipRefresh);
+
+
 
         swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -86,6 +93,7 @@ public class other_homepage_fragment extends Fragment {
                 swipeRefresh.setRefreshing(false);
             }
         });
+
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
         ilanlar =  new ArrayList<>();
@@ -107,10 +115,36 @@ public class other_homepage_fragment extends Fragment {
                 while (items.hasNext())
                 {
                     DataSnapshot item = items.next();
-                    String ilanAdi = item.child("Ilan Başlığı").getValue().toString();
-                    String isTanimi = item.child("İş Tanımı").getValue().toString();
-                    String ilanVerenKey = item.child("İş Veren").getValue().toString();
-                    String ilanYayinTarihi = item.child("yayın tarihi").getValue().toString();
+                     final String ilanAdi = item.child("Ilan Başlığı").getValue().toString();
+                     final String isTanimi = item.child("İş Tanımı").getValue().toString();
+                     final String ilanVerenKey = item.child("İş Veren").getValue().toString();
+                     final String ilanYayinTarihi = item.child("yayın tarihi").getValue().toString();
+                    mDatabase1 = FirebaseDatabase.getInstance().getReference().child("User_Ogrenciler").child(ilanVerenKey);
+                    mDatabase1.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                            String Ad= snapshot2.child("Ad").getValue(String.class);
+                            String Soyad=snapshot2.child("Soyad").getValue(String.class);
+                            String ProfilPic=snapshot2.child("Profil Resmi").getValue(String.class);
+
+                            ilanlar.add(new Ilan(ilanAdi,isTanimi,Ad+" "+Soyad,ilanYayinTarihi,ProfilPic));
+                            Collections.reverse(ilanlar);
+
+                            recyclerView.setAdapter(new Ogrenci_RVAdapter(ilanlar));
+
+                            mDatabase.removeEventListener(this);
+
+
+
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                            throw error.toException();
+
+                        }
+                    });
+
 
 
 
@@ -127,7 +161,7 @@ public class other_homepage_fragment extends Fragment {
                     });
                     */
 
-                    ilanlar.add(new Ilan(ilanAdi,isTanimi, "İlan Verenin Adı Gelecek \n" + ilanVerenKey,ilanYayinTarihi));
+
                 }
 
                 Collections.reverse(ilanlar);
@@ -142,5 +176,7 @@ public class other_homepage_fragment extends Fragment {
 
             }
         });
+
+
     }
 }
