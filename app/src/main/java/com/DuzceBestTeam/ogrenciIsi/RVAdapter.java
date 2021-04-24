@@ -1,8 +1,11 @@
 package com.DuzceBestTeam.ogrenciIsi;
 
+import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,11 +35,14 @@ import org.w3c.dom.Text;
 import java.util.ArrayList;
 
 
+
+
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
 
     ArrayList<Ilan> ilanlar = new ArrayList<>();
     StorageReference mStorageReference;
     DatabaseReference mDatabaseReference;
+    private Activity context;
 
     public RVAdapter(ArrayList<Ilan> ilanlar) {
         this.ilanlar = ilanlar;
@@ -62,24 +68,15 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         holder.ilanAciklama.setText(ilanlar.get(position).getIlanArananOzellikler());
         holder.ilansontarih.setText(ilanlar.get(position).getIlanSonBasvuruTarih());
         holder.ilanCalismaTuru.setText(ilanlar.get(position).getIlanCalismaSekli());
+        holder.ilanIsVeren.setText(ilanlar.get(position).getIlanVeren());
 
 
-        mDatabaseReference = FirebaseDatabase.getInstance().getReference().child("User_Other").child(ilanlar.get(position).getIlanVeren());
-        mDatabaseReference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot snapshot) {
-                Uri uri = Uri.parse(snapshot.child("Profil Resmi").toString());
-                Glide.with(holder.İlanVerenProfil.getContext()).load(uri).centerCrop().into(holder.İlanVerenProfil);
-            }
-            @Override
-            public void onCancelled(@NonNull DatabaseError error) {
-            }
-        });
 
 
-        //Uri uri = Uri.parse(ilanlar.get(position).getIlanVerenProfilResmi());
 
-        //Glide.with(holder.İlanVerenProfil.getContext()).load(uri).centerCrop().into(holder.İlanVerenProfil);
+        Uri uri = Uri.parse(ilanlar.get(position).getProfilPic());
+
+        Glide.with(holder.İlanVerenProfil.getContext()).load(uri).centerCrop().into(holder.İlanVerenProfil);
 
 
         holder.linearLayout.setTag(holder);
@@ -127,9 +124,37 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
 
             saklaGoster = itemView.findViewById(R.id.saklaGoster);
             constraintDetay = itemView.findViewById(R.id.constraint_detay);
-            saklaGoster.setOnClickListener(new View.OnClickListener() {
+            İlanVerenProfil.setOnClickListener(new View.OnClickListener() {
+                
+//Hatali olmuyor
                 @Override
                 public void onClick(View v) {
+                    Context mContext = null;
+                    Intent myIntent = new Intent(mContext, ProfileEdit.class);
+                    mContext.startActivity(myIntent);
+
+                    Log.i("yunus","yunus1");
+                 //   RVAdapter.this.context.startActivity(new Intent(RVAdapter.this.context,ProfileEdit.class));
+
+
+
+
+
+                }
+            });
+
+            btnBasvur.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
+                }
+            });
+            saklaGoster.setOnClickListener(new View.OnClickListener() {
+
+                @Override
+                public void onClick(View v) {
+
                     if (constraintDetay.getVisibility()==View.VISIBLE)
                     {
                         saklaGoster.setBackgroundResource(R.drawable.arrow_down);

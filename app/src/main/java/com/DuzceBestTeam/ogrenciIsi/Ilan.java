@@ -9,16 +9,27 @@ public class Ilan {
     String ilanArananOzellikler;
     String ilanVeren;
     String ilanYayinTarihi;
+    String ProfilPic;
 
-    public Ilan(String ilanBasligi, String ilanTanimi,   String ilanVeren, String ilanYayinTarihi
+
+    public String getProfilPic() {
+        return ProfilPic;
+    }
+
+    public void setProfilPic(String profilPic) {
+        ProfilPic = profilPic;
+    }
+
+    public Ilan(String ilanBasligi, String ilanTanimi, String ilanVeren, String ilanYayinTarihi, String ProfilPic
     ) {
         this.ilanBasligi = ilanBasligi;
         this.ilanTanimi = ilanTanimi;
         this.ilanVeren = ilanVeren;
         this.ilanYayinTarihi = ilanYayinTarihi;
+        this.ProfilPic = ProfilPic;
     }
 
-    public Ilan(String ilanBasligi, String ilanTanimi, String ilanPozisyon, String ilanSonBasvuruTarih, String ilanCalismaSekli, String ilanArananOzellikler, String ilanVeren, String ilanYayinTarihi
+    public Ilan(String ilanBasligi, String ilanTanimi, String ilanPozisyon, String ilanSonBasvuruTarih, String ilanCalismaSekli, String ilanArananOzellikler, String ilanVeren, String ilanYayinTarihi,String ProfilPic
     ) {
         this.ilanBasligi = ilanBasligi;
         this.ilanTanimi = ilanTanimi;
@@ -28,6 +39,7 @@ public class Ilan {
         this.ilanArananOzellikler = ilanArananOzellikler;
         this.ilanVeren = ilanVeren;
         this.ilanYayinTarihi = ilanYayinTarihi;
+        this.ProfilPic = ProfilPic;
     }
 
     public String getIlanBasligi() {

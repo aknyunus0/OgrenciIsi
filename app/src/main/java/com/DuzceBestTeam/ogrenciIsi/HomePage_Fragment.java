@@ -17,6 +17,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.auth.FirebaseAuth;
@@ -36,7 +37,7 @@ import java.util.Iterator;
 public class HomePage_Fragment extends Fragment {
 
     FirebaseAuth mAuth;
-    DatabaseReference mDatabase;
+    DatabaseReference mDatabase,mDatabase1;
     ArrayList<Ilan> ilanlar;
     RecyclerView recyclerView;
     Context context;
@@ -115,14 +116,34 @@ public class HomePage_Fragment extends Fragment {
                 while (items.hasNext())
                 {
                     DataSnapshot item = items.next();
-                    String ilanAdi = item.child("Ilan Başlığı").getValue().toString();
-                    String isTanimi = item.child("İş Tanımı").getValue().toString();
-                    String ilanAranan = item.child("Aranan Özellikler").getValue().toString();
-                    String ilanSonTarih = item.child("Son Başvuru Tarihi").getValue().toString();
-                    String ilanPozisyon = item.child("Pozisyon").getValue().toString();
-                    String ilanVeren = item.child("İş Veren").getValue().toString();
-                    String ilanCalismaTuru = item.child("Calışma Şekli").getValue().toString();
-                    String ilanYayinTarihi = item.child("yayın tarihi").getValue().toString();
+                    final String ilanAdi = item.child("Ilan Başlığı").getValue().toString();
+                    final String isTanimi = item.child("İş Tanımı").getValue().toString();
+                    final String ilanAranan = item.child("Aranan Özellikler").getValue().toString();
+                    final String ilanSonTarih = item.child("Son Başvuru Tarihi").getValue().toString();
+                    final String ilanPozisyon = item.child("Pozisyon").getValue().toString();
+                    final String ilanVeren = item.child("İş Veren").getValue().toString();
+                    final String ilanCalismaTuru = item.child("Calışma Şekli").getValue().toString();
+                    final String ilanYayinTarihi = item.child("yayın tarihi").getValue().toString();
+
+                    mDatabase1 = FirebaseDatabase.getInstance().getReference().child("User_Other").child(ilanVeren);
+                    mDatabase1.addValueEventListener(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                            String Ad= snapshot2.child("Ad").getValue(String.class);
+                            String Soyad=snapshot2.child("Soyad").getValue(String.class);
+                            String ProfilPic=snapshot2.child("Profil Resmi").getValue(String.class);
+                            ilanlar.add(new Ilan(ilanAdi, isTanimi, ilanPozisyon, ilanSonTarih, ilanCalismaTuru, ilanAranan,
+                                    Ad+" "+Soyad, ilanYayinTarihi,ProfilPic));
+                            Collections.reverse(ilanlar);
+
+                            recyclerView.setAdapter(new RVAdapter(ilanlar));
+
+                            mDatabase.removeEventListener(this);
+                        }
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError error) {
+                        }
+                    });
 
                     /*
                     mStorageReference.child("image").child(ilanVeren).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
@@ -137,15 +158,10 @@ public class HomePage_Fragment extends Fragment {
                     });
                     */
 
-                    ilanlar.add(new Ilan(ilanAdi, isTanimi, ilanPozisyon, ilanSonTarih, ilanCalismaTuru, ilanAranan,
-                            ilanVeren, ilanYayinTarihi));
+
                 }
 
-                Collections.reverse(ilanlar);
 
-                recyclerView.setAdapter(new RVAdapter(ilanlar));
-
-                mDatabase.removeEventListener(this);
             }
 
             @Override
@@ -153,6 +169,8 @@ public class HomePage_Fragment extends Fragment {
 
             }
         });
+
+
     }
 
 
