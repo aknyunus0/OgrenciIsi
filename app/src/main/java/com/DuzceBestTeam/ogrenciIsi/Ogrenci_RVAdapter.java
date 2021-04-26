@@ -1,5 +1,7 @@
 package com.DuzceBestTeam.ogrenciIsi;
 
+import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -30,6 +32,7 @@ public class Ogrenci_RVAdapter extends RecyclerView.Adapter<Ogrenci_RVAdapter.Vi
     ArrayList<Ilan> ilanlar = new ArrayList<>();
     StorageReference mStorageReference;
     DatabaseReference mDatabaseReference;
+    Context mContext = null;
 
     public Ogrenci_RVAdapter(ArrayList<Ilan> ilanlar) {
         this.ilanlar = ilanlar;
@@ -41,6 +44,7 @@ public class Ogrenci_RVAdapter extends RecyclerView.Adapter<Ogrenci_RVAdapter.Vi
     public Ogrenci_RVAdapter.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_recyclerview_other_item, parent, false);
+        mContext=parent.getContext();
         return new Ogrenci_RVAdapter.ViewHolder(view);
     }
     //Her bir görünümün içeriği belirlenir
@@ -53,6 +57,21 @@ public class Ogrenci_RVAdapter extends RecyclerView.Adapter<Ogrenci_RVAdapter.Vi
         holder.ilantanimi.setText(ilanlar.get(position).getIlanTanimi());
         holder.ilanYayinTarihi.setText(ilanlar.get(position).getIlanYayinTarihi());
         holder.ilanSahibi.setText(ilanlar.get(position).getIlanVeren());
+
+
+        holder.İlanVerenProfil.setOnClickListener(new View.OnClickListener() {
+
+            //Hatali olmuyor
+            @Override
+            public void onClick(View v) {
+
+                Intent myIntent = new Intent(mContext, showProfil.class);
+                myIntent.putExtra("UserKey",ilanlar.get(position).getUserKey().toString());
+                mContext.startActivity(myIntent);
+
+            }
+        });
+
 
 
         Uri uri = Uri.parse(ilanlar.get(position).getProfilPic());

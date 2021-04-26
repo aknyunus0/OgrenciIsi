@@ -42,7 +42,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
     ArrayList<Ilan> ilanlar = new ArrayList<>();
     StorageReference mStorageReference;
     DatabaseReference mDatabaseReference;
-    private Activity context;
+    Context mContext = null;
 
     public RVAdapter(ArrayList<Ilan> ilanlar) {
         this.ilanlar = ilanlar;
@@ -54,6 +54,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_recycle_item, parent, false);
+        mContext=parent.getContext();
         return new ViewHolder(view);
     }
 
@@ -70,8 +71,21 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         holder.ilanCalismaTuru.setText(ilanlar.get(position).getIlanCalismaSekli());
         holder.ilanIsVeren.setText(ilanlar.get(position).getIlanVeren());
 
+        
 
 
+        holder.İlanVerenProfil.setOnClickListener(new View.OnClickListener() {
+
+            //Hatali olmuyor
+            @Override
+            public void onClick(View v) {
+
+                Intent myIntent = new Intent(mContext, showProfil.class);
+               // myIntent.putExtra("UserKey",holder.)
+                mContext.startActivity(myIntent);
+
+            }
+        });
 
 
         Uri uri = Uri.parse(ilanlar.get(position).getProfilPic());
@@ -124,24 +138,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
 
             saklaGoster = itemView.findViewById(R.id.saklaGoster);
             constraintDetay = itemView.findViewById(R.id.constraint_detay);
-            İlanVerenProfil.setOnClickListener(new View.OnClickListener() {
-                
-//Hatali olmuyor
-                @Override
-                public void onClick(View v) {
-                    Context mContext = null;
-                    Intent myIntent = new Intent(mContext, ProfileEdit.class);
-                    mContext.startActivity(myIntent);
 
-                    Log.i("yunus","yunus1");
-                 //   RVAdapter.this.context.startActivity(new Intent(RVAdapter.this.context,ProfileEdit.class));
-
-
-
-
-
-                }
-            });
 
             btnBasvur.setOnClickListener(new View.OnClickListener() {
 
