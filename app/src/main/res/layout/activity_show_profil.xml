@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#F2F2F2"
+    tools:context=".showProfil">
+
+    <!-- TODO: Update blank fragment layout -->
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:padding="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="@drawable/radiusalprofile"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="10dp">
+
+
+                    <com.google.android.material.imageview.ShapeableImageView
+                        android:id="@+id/profile_image1"
+                        android:layout_width="64dp"
+                        android:layout_height="64dp"
+                        android:src="@drawable/profile"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView" />
+
+                    <TextView
+                        android:id="@+id/profile_name"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:text="İsim Soyisim"
+                        android:textSize="24dp"
+                        app:layout_constraintLeft_toRightOf="@id/profile_image1"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+
+                        android:id="@+id/bolum"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:text=""
+                        android:textSize="16dp"
+                        app:layout_constraintLeft_toRightOf="@id/profile_image1"
+                        app:layout_constraintTop_toBottomOf="@id/profile_name" />
+
+                    <TextView
+
+                        android:id="@+id/Egitimduzeyi"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginTop="5dp"
+                        android:text=""
+                        android:textSize="16dp"
+                        app:layout_constraintLeft_toRightOf="@id/profile_image1"
+                        app:layout_constraintTop_toBottomOf="@id/bolum" />
+
+                    <Button
+                        android:id="@+id/sendMessage"
+                        android:layout_width="139dp"
+                        android:layout_height="34dp"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginRight="16dp"
+                        android:background="@drawable/editprofile"
+                        android:text="Mesaj Gönder"
+                        android:textColor="#2B62D6"
+                        android:textSize="11dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintRight_toRightOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/bolum"
+                        app:layout_constraintVertical_bias="0.0" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="7dp"
+                    android:outlineAmbientShadowColor="#717171"
+                    android:stretchColumns="*">
+
+                    <TableRow android:layout_width="0dp"
+
+                        >
+
+                        <TextView
+                            android:id="@+id/Konum"
+                            android:layout_width="50dp"
+                            android:background="@drawable/textview_border"
+                            android:padding="5dp"
+                            android:text="Konum"
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:id="@+id/Üniversite"
+                            android:background="@drawable/textview_border"
+                            android:padding="5dp"
+                            android:text="Üniversite "
+                            android:textAlignment="center" />
+
+                        <TextView
+                            android:id="@+id/Puan"
+                            android:background="@drawable/textview_border"
+                            android:padding="5dp"
+                            android:text="******"
+                            android:textAlignment="center" />
+                    </TableRow>
+                </TableLayout>
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/feedBox"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="15dp">
+
+                    <TextView
+                        android:id="@+id/baldhakkinda"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Hakkında"
+                        android:textSize="18dp"
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+
+
+                        />
+
+                    <TextView
+                        android:id="@+id/hakkindatext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:minHeight="150dp"
+                        android:text=""
+                        app:layout_constraintTop_toBottomOf="@id/baldhakkinda"
+
+                        />
+
+                    <TextView
+                        android:id="@+id/uzmanlikalan"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Uzmanlık Alanları"
+
+                        android:textSize="18dp"
+
+                        android:textStyle="bold"
+                        app:layout_constraintLeft_toLeftOf="parent"
+                        app:layout_constraintTop_toBottomOf="@id/hakkindatext"
+
+
+                        />
+
+                    <TextView
+                        android:id="@+id/uzmanlikalantext"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:layout_marginBottom="8dp"
+                        android:minHeight="150dp"
+                        android:text=""
+                        app:layout_constraintTop_toBottomOf="@id/uzmanlikalan" />
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
+
+</FrameLayout>

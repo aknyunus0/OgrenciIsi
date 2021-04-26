@@ -10,6 +10,7 @@ public class Ilan {
     String ilanVeren;
     String ilanYayinTarihi;
     String ProfilPic;
+    String UserKey;
 
 
     public String getProfilPic() {
@@ -20,13 +21,22 @@ public class Ilan {
         ProfilPic = profilPic;
     }
 
-    public Ilan(String ilanBasligi, String ilanTanimi, String ilanVeren, String ilanYayinTarihi, String ProfilPic
+    public String getUserKey() {
+        return UserKey;
+    }
+
+    public void setUserKey(String userKey) {
+        UserKey = userKey;
+    }
+
+    public Ilan(String ilanBasligi, String ilanTanimi, String ilanVeren, String ilanYayinTarihi, String ProfilPic, String UserKey
     ) {
         this.ilanBasligi = ilanBasligi;
         this.ilanTanimi = ilanTanimi;
         this.ilanVeren = ilanVeren;
         this.ilanYayinTarihi = ilanYayinTarihi;
         this.ProfilPic = ProfilPic;
+        this.UserKey=UserKey;
     }
 
     public Ilan(String ilanBasligi, String ilanTanimi, String ilanPozisyon, String ilanSonBasvuruTarih, String ilanCalismaSekli, String ilanArananOzellikler, String ilanVeren, String ilanYayinTarihi,String ProfilPic

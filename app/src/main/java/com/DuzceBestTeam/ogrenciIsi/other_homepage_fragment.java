@@ -127,7 +127,7 @@ public class other_homepage_fragment extends Fragment {
                             String Soyad=snapshot2.child("Soyad").getValue(String.class);
                             String ProfilPic=snapshot2.child("Profil Resmi").getValue(String.class);
 
-                            ilanlar.add(new Ilan(ilanAdi,isTanimi,Ad+" "+Soyad,ilanYayinTarihi,ProfilPic));
+                            ilanlar.add(new Ilan(ilanAdi,isTanimi,Ad+" "+Soyad,ilanYayinTarihi,ProfilPic,ilanVerenKey));
                             Collections.reverse(ilanlar);
 
                             recyclerView.setAdapter(new Ogrenci_RVAdapter(ilanlar));
