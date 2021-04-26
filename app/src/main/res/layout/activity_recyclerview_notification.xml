@@ -8,9 +8,8 @@
     android:layout_height="wrap_content"
     android:orientation="vertical"
     app:cardBackgroundColor="#DCDCDC"
-    app:cardCornerRadius="35dp"
+    app:cardCornerRadius="20dp"
     app:cardUseCompatPadding="true"
-
     tools:context=".recyclerview_other_item">
 
     <LinearLayout
@@ -25,7 +24,10 @@
             android:id="@+id/const1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:padding="20dp">
+            android:paddingBottom="3dp"
+            android:paddingTop="15dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp">
 
             <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/İlanVerenProfil"
@@ -40,27 +42,37 @@
                 />
 
             <TextView
-                android:id="@+id/ilanBaslik"
+                android:id="@+id/adayIsim"
                 android:layout_width="150dp"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:text="İlan Adı"
+                android:text="Aday Isim"
                 android:textSize="24dp"
                 app:layout_constraintLeft_toRightOf="@+id/İlanVerenProfil"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
             <Button
-                android:id="@+id/saklaGoster"
-                android:layout_width="30dp"
-                android:layout_height="30dp"
-                android:background="@drawable/arrow_down"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintHorizontal_bias="0.851"
-                app:layout_constraintLeft_toRightOf="@+id/ilanBaslik"
-                app:layout_constraintRight_toRightOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.121" />
+                android:id="@+id/kabulEt"
+                android:layout_width="110dp"
+                android:layout_height="40dp"
+                android:textColor="#49C225"
+                android:background="@color/transparent"
+                app:layout_constraintTop_toBottomOf="@id/adayIsim"
+                app:layout_constraintLeft_toRightOf="@id/İlanVerenProfil"
+                android:layout_marginLeft="3dp"
+                android:text="Kabul Et"
+                 />
+            <Button
+                android:id="@+id/redEt"
+                android:layout_width="110dp"
+                android:layout_height="40dp"
+                android:textColor="#C11B1B"
+                android:background="@color/transparent"
+                app:layout_constraintLeft_toRightOf="@+id/kabulEt"
+                app:layout_constraintTop_toBottomOf="@id/adayIsim"
+                android:text="Reddet"
+                 />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
         <androidx.constraintlayout.widget.ConstraintLayout
@@ -87,7 +99,7 @@
                     android:layout_height="match_parent"
                     android:background="@drawable/textview_border"
                     android:padding="5dp"
-                    android:text="İlan Sahibi"
+                    android:text="Ilan Basligi"
                     android:textAlignment="center" />
 
 
@@ -102,36 +114,7 @@
 
         </TableLayout>
 
-        <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/other_constraint_detay"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:paddingLeft="20dp"
-            android:paddingRight="10dp"
-            android:visibility="gone">
 
-            <TextView
-                android:id="@+id/ilanTanimi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="5dp"
-                android:layout_marginTop="10dp"
-                android:text="İlan Tanımı"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
-
-            <Button
-                android:id="@+id/Btn_contact"
-                android:layout_width="100dp"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="20dp"
-                android:text="BAŞVUR"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintLeft_toLeftOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/ilanTanimi" />
-        </androidx.constraintlayout.widget.ConstraintLayout>
 
     </LinearLayout>
 

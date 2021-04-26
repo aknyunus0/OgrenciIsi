@@ -7,7 +7,7 @@
     <!-- View border color and width -->
     <stroke
         android:width="0.5dp"
-        android:color="#000" >
+        android:color="#49C225" >
     </stroke>
     <solid
         android:color="@color/transparent">
