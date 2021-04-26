@@ -30,7 +30,7 @@
             android:paddingLeft="20dp">
 
             <com.google.android.material.imageview.ShapeableImageView
-                android:id="@+id/İlanVerenProfil"
+                android:id="@+id/AdayPic"
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:scaleType="centerCrop"
@@ -48,7 +48,7 @@
                 android:layout_marginLeft="20dp"
                 android:text="Aday Isim"
                 android:textSize="24dp"
-                app:layout_constraintLeft_toRightOf="@+id/İlanVerenProfil"
+                app:layout_constraintLeft_toRightOf="@+id/AdayPic"
                 app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -59,7 +59,7 @@
                 android:textColor="#49C225"
                 android:background="@color/transparent"
                 app:layout_constraintTop_toBottomOf="@id/adayIsim"
-                app:layout_constraintLeft_toRightOf="@id/İlanVerenProfil"
+                app:layout_constraintLeft_toRightOf="@id/AdayPic"
                 android:layout_marginLeft="3dp"
                 android:text="Kabul Et"
                  />
@@ -94,7 +94,7 @@
             <TableRow android:layout_width="0dp">
 
                 <TextView
-                    android:id="@+id/ilanSahibi"
+                    android:id="@+id/ilanBaslik"
                     android:layout_width="50dp"
                     android:layout_height="match_parent"
                     android:background="@drawable/textview_border"

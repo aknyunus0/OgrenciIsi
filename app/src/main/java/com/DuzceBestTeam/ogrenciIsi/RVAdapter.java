@@ -22,6 +22,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
 import com.google.android.material.imageview.ShapeableImageView;
+import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -42,6 +43,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
     ArrayList<Ilan> ilanlar = new ArrayList<>();
     StorageReference mStorageReference;
     DatabaseReference mDatabaseReference;
+    FirebaseAuth mAuth;
     Context mContext = null;
 
     public RVAdapter(ArrayList<Ilan> ilanlar) {
@@ -71,18 +73,33 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         holder.ilanCalismaTuru.setText(ilanlar.get(position).getIlanCalismaSekli());
         holder.ilanIsVeren.setText(ilanlar.get(position).getIlanVeren());
 
-        
+
+
+
 
 
         holder.İlanVerenProfil.setOnClickListener(new View.OnClickListener() {
 
-            //Hatali olmuyor
+
             @Override
             public void onClick(View v) {
 
                 Intent myIntent = new Intent(mContext, showProfil.class);
                // myIntent.putExtra("UserKey",holder.)
                 mContext.startActivity(myIntent);
+
+            }
+        });
+
+       holder.btnBasvur.setOnClickListener(new View.OnClickListener() {
+
+            @Override
+            public void onClick(View v) {
+                mDatabaseReference.child("Other_Ilanlar").child(ilanlar.get(position).getIlanKey()).child("Basvurular").child(mAuth.getCurrentUser().getUid()).child("Durum").setValue(2);
+                mDatabaseReference.child("User_Ogrenciler").child(mAuth.getCurrentUser().getUid()).child("Basvurularim").child(ilanlar.get(position).getIlanKey()).child("Durum").setValue(2);
+                mDatabaseReference.child("User_Other").child(ilanlar.get(position).getUserKey()).child("Ilanlarim").child(ilanlar.get(position).getIlanKey()).child("Basvurular").child(mAuth.getCurrentUser().getUid()).child("Durum").setValue(2);
+
+
 
             }
         });
@@ -131,6 +148,8 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
             ilanCalismaTuru = itemView.findViewById(R.id.ilanCalismaTuru);
             ilanYayinTarihi = itemView.findViewById(R.id.ilanYayinTarihi);
             İlanVerenProfil =  itemView.findViewById(R.id.İlanVerenProfil);
+            mDatabaseReference=FirebaseDatabase.getInstance().getReference();
+            mAuth=FirebaseAuth.getInstance();
 
 
             btnBasvur = itemView.findViewById(R.id.btnBasvur);
@@ -140,13 +159,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
             constraintDetay = itemView.findViewById(R.id.constraint_detay);
 
 
-            btnBasvur.setOnClickListener(new View.OnClickListener() {
 
-                @Override
-                public void onClick(View v) {
-
-                }
-            });
             saklaGoster.setOnClickListener(new View.OnClickListener() {
 
                 @Override

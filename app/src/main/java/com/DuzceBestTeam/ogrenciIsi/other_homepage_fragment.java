@@ -119,6 +119,7 @@ public class other_homepage_fragment extends Fragment {
                      final String isTanimi = item.child("İş Tanımı").getValue().toString();
                      final String ilanVerenKey = item.child("İş Veren").getValue().toString();
                      final String ilanYayinTarihi = item.child("yayın tarihi").getValue().toString();
+                     final String ilanKey=item.getKey();
                     mDatabase1 = FirebaseDatabase.getInstance().getReference().child("User_Ogrenciler").child(ilanVerenKey);
                     mDatabase1.addListenerForSingleValueEvent(new ValueEventListener() {
                         @Override
@@ -127,7 +128,7 @@ public class other_homepage_fragment extends Fragment {
                             String Soyad=snapshot2.child("Soyad").getValue(String.class);
                             String ProfilPic=snapshot2.child("Profil Resmi").getValue(String.class);
 
-                            ilanlar.add(new Ilan(ilanAdi,isTanimi,Ad+" "+Soyad,ilanYayinTarihi,ProfilPic,ilanVerenKey));
+                            ilanlar.add(new Ilan(ilanAdi,isTanimi,Ad+" "+Soyad,ilanYayinTarihi,ProfilPic,ilanVerenKey,ilanKey));
                             Collections.reverse(ilanlar);
 
                             recyclerView.setAdapter(new Ogrenci_RVAdapter(ilanlar));

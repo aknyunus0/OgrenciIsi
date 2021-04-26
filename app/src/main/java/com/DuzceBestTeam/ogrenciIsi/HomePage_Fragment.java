@@ -124,6 +124,7 @@ public class HomePage_Fragment extends Fragment {
                     final String ilanVeren = item.child("İş Veren").getValue().toString();
                     final String ilanCalismaTuru = item.child("Calışma Şekli").getValue().toString();
                     final String ilanYayinTarihi = item.child("yayın tarihi").getValue().toString();
+                    final String ilanKey=item.getKey();
 
                     mDatabase1 = FirebaseDatabase.getInstance().getReference().child("User_Other").child(ilanVeren);
                     mDatabase1.addValueEventListener(new ValueEventListener() {
@@ -133,7 +134,7 @@ public class HomePage_Fragment extends Fragment {
                             String Soyad=snapshot2.child("Soyad").getValue(String.class);
                             String ProfilPic=snapshot2.child("Profil Resmi").getValue(String.class);
                             ilanlar.add(new Ilan(ilanAdi, isTanimi, ilanPozisyon, ilanSonTarih, ilanCalismaTuru, ilanAranan,
-                                    Ad+" "+Soyad, ilanYayinTarihi,ProfilPic));
+                                    Ad+" "+Soyad, ilanYayinTarihi,ProfilPic,ilanKey));
                             Collections.reverse(ilanlar);
 
                             recyclerView.setAdapter(new RVAdapter(ilanlar));
