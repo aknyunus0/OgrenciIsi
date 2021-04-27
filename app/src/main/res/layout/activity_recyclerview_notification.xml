@@ -10,7 +10,7 @@
     app:cardBackgroundColor="#DCDCDC"
     app:cardCornerRadius="20dp"
     app:cardUseCompatPadding="true"
-    tools:context=".recyclerview_other_item">
+    tools:context=".RecyclerView_Notification_item">
 
     <LinearLayout
         android:id="@+id/other_linearLayout"
@@ -43,7 +43,7 @@
 
             <TextView
                 android:id="@+id/adayIsim"
-                android:layout_width="150dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
                 android:text="Aday Isim"

@@ -1,25 +1,42 @@
 package com.DuzceBestTeam.ogrenciIsi;
 
+import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 
-/**
- * A simple {@link Fragment} subclass.
- * Use the {@link Notification_Fragment#newInstance} factory method to
- * create an instance of this fragment.
- */
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+
+import java.util.ArrayList;
+import java.util.Iterator;
+
 public class Notification_Fragment extends Fragment {
 
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
+
+    FirebaseAuth mAuth;
+    DatabaseReference mDatabase, mDatabase1;
+    ArrayList<Notification> notifications;
+    RecyclerView recyclerView;
+    Context context;
+    SwipeRefreshLayout swipeRefresh;
+
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
 
-    // TODO: Rename and change types of parameters
     private String mParam1;
     private String mParam2;
 
@@ -27,15 +44,7 @@ public class Notification_Fragment extends Fragment {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment Notification_Fragment.
-     */
-    // TODO: Rename and change types and number of parameters
+
     public static Notification_Fragment newInstance(String param1, String param2) {
         Notification_Fragment fragment = new Notification_Fragment();
         Bundle args = new Bundle();
@@ -44,6 +53,7 @@ public class Notification_Fragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -57,7 +67,74 @@ public class Notification_Fragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_notification_, container, false);
+        View view = inflater.inflate(R.layout.fragment_notification_, container, false);
+        context = view.getContext().getApplicationContext();
+        recyclerView = view.findViewById(R.id.recyclerView);
+        swipeRefresh = view.findViewById(R.id.swipRefresh);
+
+        swipeRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                verileriCek();
+                swipeRefresh.setRefreshing(false);
+            }
+        });
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        notifications = new ArrayList<>();
+
+        verileriCek();
+
+        return view;
+    }
+
+
+    private void verileriCek() {
+        /*
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("User_Other");
+        mDatabase.child(mAuth.getCurrentUser().getUid()).child("Ilanlarim")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Iterator<DataSnapshot> items = snapshot.getChildren().iterator();
+                        notifications.clear();
+
+                        while (items.hasNext()) {
+                            DataSnapshot item = items.next();
+                            final String ilanBasligi = item.child("Ilan Basligi").getValue().toString();
+                            notifications.add(new Notification("user name", ilanBasligi, "2", "https://kstu.edu.tr/kstu-file/uploads/default-user-image.png"));
+                            recyclerView.setAdapter(new RVAdapter_Notification(notifications));
+                            mDatabase.removeEventListener(this);
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+         */
     }
 }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
