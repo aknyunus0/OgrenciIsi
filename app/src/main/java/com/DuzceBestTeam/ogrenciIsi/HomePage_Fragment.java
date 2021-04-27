@@ -36,14 +36,11 @@ import java.util.Iterator;
 
 public class HomePage_Fragment extends Fragment {
 
-    FirebaseAuth mAuth;
-    DatabaseReference mDatabase,mDatabase1;
+    DatabaseReference mDatabase, mDatabase1;
     ArrayList<Ilan> ilanlar;
     RecyclerView recyclerView;
     Context context;
     SwipeRefreshLayout swipeRefresh;
-    StorageReference mStorageReference = FirebaseStorage.getInstance().getReference();
-    String ilanVerenProfilResmiLink;
 
 
     private static final String ARG_PARAM1 = "param1";
@@ -55,8 +52,6 @@ public class HomePage_Fragment extends Fragment {
     public HomePage_Fragment() {
         // Required empty public constructor
     }
-
-
 
 
     public static HomePage_Fragment newInstance(String param1, String param2) {
@@ -96,11 +91,9 @@ public class HomePage_Fragment extends Fragment {
         });
 
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-        ilanlar =  new ArrayList<>();
+        ilanlar = new ArrayList<>();
 
         verileriCek();
-
-
 
 
         return view;
@@ -113,8 +106,7 @@ public class HomePage_Fragment extends Fragment {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Iterator<DataSnapshot> items = snapshot.getChildren().iterator();
                 ilanlar.clear();
-                while (items.hasNext())
-                {
+                while (items.hasNext()) {
                     DataSnapshot item = items.next();
                     final String ilanAdi = item.child("Ilan Başlığı").getValue().toString();
                     final String isTanimi = item.child("İş Tanımı").getValue().toString();
@@ -124,55 +116,34 @@ public class HomePage_Fragment extends Fragment {
                     final String ilanVeren = item.child("İş Veren").getValue().toString();
                     final String ilanCalismaTuru = item.child("Calışma Şekli").getValue().toString();
                     final String ilanYayinTarihi = item.child("yayın tarihi").getValue().toString();
-                    final String ilanKey=item.getKey();
+                    final String ilanKey = item.getKey();
 
                     mDatabase1 = FirebaseDatabase.getInstance().getReference().child("User_Other").child(ilanVeren);
                     mDatabase1.addValueEventListener(new ValueEventListener() {
                         @Override
                         public void onDataChange(@NonNull DataSnapshot snapshot2) {
-                            String Ad= snapshot2.child("Ad").getValue(String.class);
-                            String Soyad=snapshot2.child("Soyad").getValue(String.class);
-                            String ProfilPic=snapshot2.child("Profil Resmi").getValue(String.class);
+                            String Ad = snapshot2.child("Ad").getValue(String.class);
+                            String Soyad = snapshot2.child("Soyad").getValue(String.class);
+                            String ProfilPic = snapshot2.child("Profil Resmi").getValue(String.class);
                             ilanlar.add(new Ilan(ilanAdi, isTanimi, ilanPozisyon, ilanSonTarih, ilanCalismaTuru, ilanAranan,
-                                    Ad+" "+Soyad, ilanYayinTarihi,ProfilPic,ilanKey,ilanVeren));
+                                    Ad + " " + Soyad, ilanYayinTarihi, ProfilPic, ilanKey, ilanVeren));
                             Collections.reverse(ilanlar);
 
                             recyclerView.setAdapter(new RVAdapter(ilanlar));
 
                             mDatabase.removeEventListener(this);
                         }
+
                         @Override
                         public void onCancelled(@NonNull DatabaseError error) {
                         }
                     });
-
-                    /*
-                    mStorageReference.child("image").child(ilanVeren).getDownloadUrl().addOnCompleteListener(new OnCompleteListener<Uri>() {
-                        @Override
-                        public void onComplete(@NonNull Task<Uri> task) {
-                            if (task.isSuccessful())
-                            {
-                                ilanVerenProfilResmiLink = task.getResult().toString();
-                                Toast.makeText(context,ilanVerenProfilResmiLink , Toast.LENGTH_LONG).show();
-                            }
-                        }
-                    });
-                    */
-
-
                 }
-
-
             }
 
             @Override
             public void onCancelled(@NonNull DatabaseError error) {
-
             }
         });
-
-
     }
-
-
 }

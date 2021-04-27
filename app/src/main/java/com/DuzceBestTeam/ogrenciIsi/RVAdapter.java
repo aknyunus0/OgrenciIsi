@@ -41,7 +41,6 @@ import java.util.ArrayList;
 public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
 
     ArrayList<Ilan> ilanlar = new ArrayList<>();
-    StorageReference mStorageReference;
     DatabaseReference mDatabaseReference;
     FirebaseAuth mAuth;
     Context mContext = null;
@@ -74,12 +73,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
         holder.ilanIsVeren.setText(ilanlar.get(position).getIlanVeren());
 
 
-
-
-
-
         holder.İlanVerenProfil.setOnClickListener(new View.OnClickListener() {
-
 
             @Override
             public void onClick(View v) {
@@ -87,7 +81,6 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
                 Intent myIntent = new Intent(mContext, showProfil.class);
                // myIntent.putExtra("UserKey",holder.)
                 mContext.startActivity(myIntent);
-
             }
         });
 
@@ -97,24 +90,15 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
             public void onClick(View v) {
                 mDatabaseReference.child("Other_Ilanlar").child(ilanlar.get(position).getIlanKey()).child("Basvurular").child(mAuth.getCurrentUser().getUid()).child("Durum").setValue(2);
                 mDatabaseReference.child("User_Ogrenciler").child(mAuth.getCurrentUser().getUid()).child("Basvurularim").child(ilanlar.get(position).getIlanKey()).child("Durum").setValue(2);
-
                 mDatabaseReference.child("User_Other").child(ilanlar.get(position).getUserKey()).child("Ilanlarim").child(ilanlar.get(position).getIlanKey()).child("Basvurular").child(mAuth.getCurrentUser().getUid()).child("Durum").setValue(2);
-
-
-
             }
         });
 
-
         Uri uri = Uri.parse(ilanlar.get(position).getProfilPic());
-
         Glide.with(holder.İlanVerenProfil.getContext()).load(uri).centerCrop().into(holder.İlanVerenProfil);
 
 
         holder.linearLayout.setTag(holder);
-
-
-
     }
 
     @Override

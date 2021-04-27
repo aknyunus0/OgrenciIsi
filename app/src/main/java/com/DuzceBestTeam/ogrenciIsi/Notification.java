@@ -5,14 +5,23 @@ public class Notification {
     String IlanBasligi;
     String Durum;
     String PrifilPic;
+    String UserKey;
 
 
-
-    public Notification(String userName, String ilanBasligi, String durum, String prifilPic) {
+    public Notification(String userName, String ilanBasligi, String durum, String prifilPic, String userKey) {
         UserName = userName;
         IlanBasligi = ilanBasligi;
         Durum = durum;
         PrifilPic = prifilPic;
+        UserKey = userKey;
+    }
+
+    public String getUserKey() {
+        return UserKey;
+    }
+
+    public void setUserKey(String userKey) {
+        UserKey = userKey;
     }
 
     public String getUserName() {
