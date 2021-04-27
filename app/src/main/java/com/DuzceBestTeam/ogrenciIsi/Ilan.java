@@ -49,7 +49,7 @@ public class Ilan {
         this.ilanKey=ilanKey;
     }
 
-    public Ilan(String ilanBasligi, String ilanTanimi, String ilanPozisyon, String ilanSonBasvuruTarih, String ilanCalismaSekli, String ilanArananOzellikler, String ilanVeren, String ilanYayinTarihi,String ProfilPic,String ilanKey
+    public Ilan(String ilanBasligi, String ilanTanimi, String ilanPozisyon, String ilanSonBasvuruTarih, String ilanCalismaSekli, String ilanArananOzellikler, String ilanVeren, String ilanYayinTarihi,String ProfilPic,String ilanKey,String UserKey
     ) {
         this.ilanBasligi = ilanBasligi;
         this.ilanTanimi = ilanTanimi;
@@ -61,6 +61,7 @@ public class Ilan {
         this.ilanYayinTarihi = ilanYayinTarihi;
         this.ProfilPic = ProfilPic;
         this.ilanKey=ilanKey;
+        this.UserKey=UserKey;
     }
 
     public String getIlanBasligi() {

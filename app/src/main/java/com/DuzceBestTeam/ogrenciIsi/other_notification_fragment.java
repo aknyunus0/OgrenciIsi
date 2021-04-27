@@ -91,20 +91,18 @@ public class other_notification_fragment extends Fragment {
 
     }
 
-  /*  private void verileriCek() {
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("Other_Ilanlar");
+   /* private void verileriCek() {
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("User_Other").child(mAuth.getCurrentUser().getUid()).child("Ilanlarim");
         mDatabase.addValueEventListener(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 Iterator<DataSnapshot> items = snapshot.getChildren().iterator();
-                ilanlar.clear();
+                Notifications.clear();
                 while (items.hasNext())
                 {
                     DataSnapshot item = items.next();
-                    final String ilanAdi = item.child("Ilan Başlığı").getValue().toString();
-                    final String isTanimi = item.child("İş Tanımı").getValue().toString();
-                    final String ilanVerenKey = item.child("İş Veren").getValue().toString();
-                    final String ilanYayinTarihi = item.child("yayın tarihi").getValue().toString();
+                    final String ilanAdi = item.child("Ilan Basligi").getValue().toString();
+                  /
                     final String ilanKey=item.getKey();
                     mDatabase1 = FirebaseDatabase.getInstance().getReference().child("User_Ogrenciler").child(ilanVerenKey);
                     mDatabase1.addListenerForSingleValueEvent(new ValueEventListener() {
