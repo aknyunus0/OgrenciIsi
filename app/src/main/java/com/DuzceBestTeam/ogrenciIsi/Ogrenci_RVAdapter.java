@@ -58,7 +58,7 @@ public class Ogrenci_RVAdapter extends RecyclerView.Adapter<Ogrenci_RVAdapter.Vi
         holder.ilanYayinTarihi.setText(ilanlar.get(position).getIlanYayinTarihi());
         holder.ilanSahibi.setText(ilanlar.get(position).getIlanVeren());
 
-
+        Log.i("yunus",ilanlar.get(position).getIlanKey());
         holder.İlanVerenProfil.setOnClickListener(new View.OnClickListener() {
 
             //Hatali olmuyor

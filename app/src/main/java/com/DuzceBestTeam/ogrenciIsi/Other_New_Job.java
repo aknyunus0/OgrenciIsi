@@ -113,8 +113,8 @@ public class Other_New_Job extends AppCompatActivity  {
 
                 mDatabase.child(jobKey).setValue(userMap);
 
-                DatabaseReference newJob=FirebaseDatabase.getInstance().getReference().child(User.userDatabase).child(User_id).child("Ilanlarim").child(jobTitle);
-                newJob.setValue(jobKey);
+                DatabaseReference newJob=FirebaseDatabase.getInstance().getReference().child(User.userDatabase).child(User_id).child("Ilanlarim").child(jobKey);
+                newJob.child("Ilan Basligi").setValue(jobTitle);
 
                 Toast.makeText( Other_New_Job.this, "İlanınız Başarıyla Yayınlandı", Toast.LENGTH_LONG).show();
                 startActivity(new Intent(Other_New_Job.this,AnaSayfa.class));

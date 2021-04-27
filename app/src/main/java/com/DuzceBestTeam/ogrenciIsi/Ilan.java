@@ -1,6 +1,7 @@
 package com.DuzceBestTeam.ogrenciIsi;
 
 public class Ilan {
+    String ilanKey;
     String ilanBasligi;
     String ilanTanimi;
     String ilanPozisyon;
@@ -29,7 +30,15 @@ public class Ilan {
         UserKey = userKey;
     }
 
-    public Ilan(String ilanBasligi, String ilanTanimi, String ilanVeren, String ilanYayinTarihi, String ProfilPic, String UserKey
+    public String getIlanKey() {
+        return ilanKey;
+    }
+
+    public void setIlanKey(String ilanKey) {
+        this.ilanKey = ilanKey;
+    }
+
+    public Ilan(String ilanBasligi, String ilanTanimi, String ilanVeren, String ilanYayinTarihi, String ProfilPic, String UserKey, String ilanKey
     ) {
         this.ilanBasligi = ilanBasligi;
         this.ilanTanimi = ilanTanimi;
@@ -37,9 +46,10 @@ public class Ilan {
         this.ilanYayinTarihi = ilanYayinTarihi;
         this.ProfilPic = ProfilPic;
         this.UserKey=UserKey;
+        this.ilanKey=ilanKey;
     }
 
-    public Ilan(String ilanBasligi, String ilanTanimi, String ilanPozisyon, String ilanSonBasvuruTarih, String ilanCalismaSekli, String ilanArananOzellikler, String ilanVeren, String ilanYayinTarihi,String ProfilPic
+    public Ilan(String ilanBasligi, String ilanTanimi, String ilanPozisyon, String ilanSonBasvuruTarih, String ilanCalismaSekli, String ilanArananOzellikler, String ilanVeren, String ilanYayinTarihi,String ProfilPic,String ilanKey
     ) {
         this.ilanBasligi = ilanBasligi;
         this.ilanTanimi = ilanTanimi;
@@ -50,6 +60,7 @@ public class Ilan {
         this.ilanVeren = ilanVeren;
         this.ilanYayinTarihi = ilanYayinTarihi;
         this.ProfilPic = ProfilPic;
+        this.ilanKey=ilanKey;
     }
 
     public String getIlanBasligi() {
