@@ -97,6 +97,7 @@ public class RVAdapter extends RecyclerView.Adapter<RVAdapter.ViewHolder> {
             public void onClick(View v) {
                 mDatabaseReference.child("Other_Ilanlar").child(ilanlar.get(position).getIlanKey()).child("Basvurular").child(mAuth.getCurrentUser().getUid()).child("Durum").setValue(2);
                 mDatabaseReference.child("User_Ogrenciler").child(mAuth.getCurrentUser().getUid()).child("Basvurularim").child(ilanlar.get(position).getIlanKey()).child("Durum").setValue(2);
+
                 mDatabaseReference.child("User_Other").child(ilanlar.get(position).getUserKey()).child("Ilanlarim").child(ilanlar.get(position).getIlanKey()).child("Basvurular").child(mAuth.getCurrentUser().getUid()).child("Durum").setValue(2);
 
 
