@@ -19,6 +19,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.material.imageview.ShapeableImageView;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
@@ -43,7 +44,7 @@ public class RVAdapter_Notification  extends RecyclerView.Adapter<RVAdapter_Noti
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ViewHolder holder, final int position) {
+    public void onBindViewHolder(@NonNull final ViewHolder holder, final int position) {
         holder.ilanBaslik.setText(notifications.get(position).getIlanBasligi());
         holder.adayIsim.setText(notifications.get(position).getUserName());
 
@@ -51,6 +52,23 @@ public class RVAdapter_Notification  extends RecyclerView.Adapter<RVAdapter_Noti
         Glide.with(holder.AdayPic.getContext()).load(uri).centerCrop().into(holder.AdayPic);
 
         holder.linearLayout.setTag(holder);
+
+
+
+        holder.kabulEt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDatabaseReference.child("User_Ogrenciler").child(notifications.get(position).getUserKey()).child("Basvurularim").child(notifications.get(position).getIlanKey()).child("Durum").setValue(1);
+                
+            }
+        });
+
+        holder.redEt.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mDatabaseReference.child("User_Ogrenciler").child(notifications.get(position).getUserKey()).child("Basvurularim").child(notifications.get(position).getIlanKey()).child("Durum").setValue(0);
+            }
+        });
 
         holder.AdayPic.setOnClickListener(new View.OnClickListener() {
 
@@ -88,6 +106,7 @@ public class RVAdapter_Notification  extends RecyclerView.Adapter<RVAdapter_Noti
             redEt = itemView.findViewById(R.id.redEt);
             AdayPic =  itemView.findViewById(R.id.AdayPic);
             linearLayout = itemView.findViewById(R.id.other_linearLayout);
+            mDatabaseReference= FirebaseDatabase.getInstance().getReference();
         }
     }
 }

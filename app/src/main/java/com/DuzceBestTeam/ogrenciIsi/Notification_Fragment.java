@@ -28,7 +28,7 @@ public class Notification_Fragment extends Fragment {
 
 
     FirebaseAuth mAuth;
-    DatabaseReference mDatabase, mDatabase1;
+    DatabaseReference mDatabase, mDatabase1,mDatabase2;
     ArrayList<Notification> notifications;
     RecyclerView recyclerView;
     Context context;
@@ -90,9 +90,69 @@ public class Notification_Fragment extends Fragment {
 
 
     private void verileriCek() {
-        /*
+
         mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("User_Other");
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("User_Ogrenciler");
+        mDatabase.child(mAuth.getCurrentUser().getUid()).child("Basvurularim")
+                .addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot snapshot) {
+                        Iterator<DataSnapshot> items = snapshot.getChildren().iterator();
+                        notifications.clear();
+
+                        while (items.hasNext()) {
+                            DataSnapshot item = items.next();
+                            final String durum = item.child("Durum").getValue().toString();
+                            final String ilanKey = item.getKey();
+                            mDatabase1 = FirebaseDatabase.getInstance().getReference().child("Other_Ilanlar").child(ilanKey);
+                            mDatabase1.addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(@NonNull DataSnapshot snapshot2) {
+                                    final String IlanBasligi = snapshot2.child("Ilan Başlığı").getValue().toString();
+                                    String isVerenKey = snapshot2.child("İş Veren").getValue().toString();
+                                    mDatabase2 = FirebaseDatabase.getInstance().getReference().child("User_Other").child(isVerenKey);
+                                    mDatabase2.addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(@NonNull DataSnapshot snapshot3) {
+                                            String IsVerenPic = snapshot3.child("Profil Resmi").getValue().toString();
+
+                                            notifications.add(new Notification(IlanBasligi, durum, IsVerenPic, mAuth.getCurrentUser().getUid(), ilanKey));
+                                            recyclerView.setAdapter(new RVAdapter_Notification(notifications));
+                                            mDatabase.removeEventListener(this);
+
+                                        }
+
+                                        @Override
+                                        public void onCancelled(@NonNull DatabaseError error) {
+
+                                        }
+                                    });
+                                }
+
+                                @Override
+                                public void onCancelled(@NonNull DatabaseError error) {
+
+                                }
+                            });
+
+
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError error) {
+
+                    }
+                });
+
+
+    }
+
+
+  /* private void verileriCek() {
+
+        mAuth = FirebaseAuth.getInstance();
+        mDatabase = FirebaseDatabase.getInstance().getReference().child("User_Ogrenciler");
         mDatabase.child(mAuth.getCurrentUser().getUid()).child("Ilanlarim")
                 .addValueEventListener(new ValueEventListener() {
                     @Override
@@ -115,8 +175,8 @@ public class Notification_Fragment extends Fragment {
                     }
                 });
 
-         */
-    }
+
+    }*/
 }
 
 
