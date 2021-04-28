@@ -7,7 +7,7 @@ public class Notification {
     String PrifilPic;
     String UserKey;
     String IlanKey;
-    public Notification( String ilanBasligi, String durum, String prifilPic, String userKey,String ilanlKey) {
+    public Notification(String ilanBasligi, String durum, String prifilPic, String userKey,String ilanlKey) {
         IlanBasligi = ilanBasligi;
         Durum = durum;
         PrifilPic = prifilPic;

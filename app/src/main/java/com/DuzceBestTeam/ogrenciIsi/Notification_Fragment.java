@@ -2,11 +2,9 @@ package com.DuzceBestTeam.ogrenciIsi;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -117,7 +115,7 @@ public class Notification_Fragment extends Fragment {
                                             String IsVerenPic = snapshot3.child("Profil Resmi").getValue().toString();
 
                                             notifications.add(new Notification(IlanBasligi, durum, IsVerenPic, mAuth.getCurrentUser().getUid(), ilanKey));
-                                            recyclerView.setAdapter(new RVAdapter_Notification(notifications));
+                                            recyclerView.setAdapter(new Ogrenci_RVAdapter_Notification(notifications));
                                             mDatabase.removeEventListener(this);
 
                                         }
