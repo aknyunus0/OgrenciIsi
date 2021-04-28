@@ -112,6 +112,7 @@ public class other_notification_fragment extends Fragment {
 
                             //döngü sırasında gelen yeni ilanı tutacak değişken
                             DataSnapshot ilan = ilanlar.next();
+                            final String IlanKey=ilan.getKey();
 
                             //eğer ilana en az bir başvuran varsa başvurular alt tablosu oluşacağından
                             //ilk önce bu tablonun oluşup oluşmadığı kontrol edilir
@@ -151,7 +152,7 @@ public class other_notification_fragment extends Fragment {
                                                 String basvuranResim = snapshot.child("Profil Resmi").getValue().toString();
 
                                                 //son olarak bu amınakoduğumun bildirimine ekleme yapılır
-                                                notifications.add(new Notification(basvuranAd + " " + basvuranSoyAd, ilanBasligi, "2", basvuranResim, snapshot.getKey()));
+                                                notifications.add(new Notification(basvuranAd + " " + basvuranSoyAd, ilanBasligi, "2", basvuranResim, snapshot.getKey(),IlanKey));
                                                 recyclerView.setAdapter(new RVAdapter_Notification(notifications));
                                                 mDatabase.removeEventListener(this);
                                             }

@@ -6,15 +6,32 @@ public class Notification {
     String Durum;
     String PrifilPic;
     String UserKey;
-
-
-    public Notification(String userName, String ilanBasligi, String durum, String prifilPic, String userKey) {
+    String IlanKey;
+    public Notification( String ilanBasligi, String durum, String prifilPic, String userKey,String ilanlKey) {
+        IlanBasligi = ilanBasligi;
+        Durum = durum;
+        PrifilPic = prifilPic;
+        UserKey = userKey;
+        IlanKey=ilanlKey;
+    }
+    public Notification(String userName, String ilanBasligi, String durum, String prifilPic, String userKey,String ilanlKey) {
         UserName = userName;
         IlanBasligi = ilanBasligi;
         Durum = durum;
         PrifilPic = prifilPic;
         UserKey = userKey;
+        IlanKey=ilanlKey;
     }
+
+    public String getIlanKey() {
+        return IlanKey;
+    }
+
+    public void setIlanKey(String ilanKey) {
+        IlanKey = ilanKey;
+    }
+
+
 
     public String getUserKey() {
         return UserKey;
