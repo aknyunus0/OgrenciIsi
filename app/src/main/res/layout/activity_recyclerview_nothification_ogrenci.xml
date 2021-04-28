@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/carview"
+    style="@style/CardView.Light"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical"
+    app:cardBackgroundColor="#DCDCDC"
+    app:cardCornerRadius="20dp"
+    app:cardUseCompatPadding="true"
+    tools:context=".RecyclerView_Notification_item">
+
+    <LinearLayout
+        android:id="@+id/other_linearLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:paddingBottom="0dp">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingBottom="3dp"
+            android:paddingTop="15dp"
+            android:paddingRight="20dp"
+            android:paddingLeft="20dp">
+
+            <com.google.android.material.imageview.ShapeableImageView
+                android:id="@+id/AdayPic"
+                android:layout_width="64dp"
+                android:layout_height="64dp"
+                android:scaleType="centerCrop"
+                android:src="@drawable/profile"
+                app:layout_constraintLeft_toLeftOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:shapeAppearance="@style/ShapeAppearance.App.CircleImageView"
+
+                />
+
+            <TextView
+                android:id="@+id/ilanBaslik"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="20dp"
+                android:text="Ilan Başlığı"
+                android:textSize="24dp"
+                app:layout_constraintLeft_toRightOf="@+id/AdayPic"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <Button
+                android:id="@+id/mesajGonder"
+                android:layout_width="wrap_content"
+                android:layout_height="40dp"
+                android:textColor="#49C225"
+                android:background="@color/transparent"
+                app:layout_constraintTop_toBottomOf="@id/ilanBaslik"
+                app:layout_constraintLeft_toRightOf="@id/AdayPic"
+                android:layout_marginLeft="4dp"
+                android:text="Mesaj Gönder"
+
+                />
+            <ImageView
+                android:id="@+id/onayCheck"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_notification_check_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.851"
+                android:textColor="#49C225"
+                app:layout_constraintLeft_toRightOf="@+id/ilanBaslik"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.121"
+                android:visibility="visible"/>
+            <ImageView
+                android:id="@+id/onayRed"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_notification_close_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.851"
+                android:textColor="#49C225"
+                app:layout_constraintLeft_toRightOf="@+id/ilanBaslik"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.121"
+                android:visibility="gone"/>
+            <ImageView
+                android:id="@+id/onayBekle"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:background="@drawable/ic_notification_time_24"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintHorizontal_bias="0.851"
+                android:textColor="#49C225"
+                app:layout_constraintLeft_toRightOf="@+id/ilanBaslik"
+                app:layout_constraintRight_toRightOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.121"
+                android:visibility="gone"/>
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/const2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingLeft="20dp"
+            android:paddingRight="15dp">
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:outlineAmbientShadowColor="#717171"
+            android:stretchColumns="*">
+
+            <TableRow android:layout_width="0dp">
+
+                <TextView
+                    android:id="@+id/ilanSahibi"
+                    android:layout_width="50dp"
+                    android:layout_height="match_parent"
+                    android:background="@drawable/textview_border"
+                    android:padding="5dp"
+                    android:text="Ilan Sahibi"
+                    android:textAlignment="center" />
+
+
+                <TextView
+                    android:id="@+id/ilanYayinTarihi"
+                    android:background="@drawable/textview_border"
+                    android:padding="5dp"
+                    android:text="Yayın Tarihi"
+                    android:textAlignment="center" />
+            </TableRow>
+
+
+        </TableLayout>
+
+
+
+    </LinearLayout>
+
+
+</androidx.cardview.widget.CardView>
