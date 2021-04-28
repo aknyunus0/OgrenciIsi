@@ -52,16 +52,19 @@ public class Ogrenci_RVAdapter_Notification  extends RecyclerView.Adapter<Ogrenc
             holder.onayCheck.setVisibility(View.VISIBLE);
             holder.onayRed.setVisibility(View.GONE);
             holder.onayBekle.setVisibility(View.GONE);
+            holder.mesajGonder.setVisibility(View.VISIBLE);
         }
         if(notifications.get(position).getDurum().equals("0")){
             holder.onayCheck.setVisibility(View.GONE);
             holder.onayRed.setVisibility(View.VISIBLE);
             holder.onayBekle.setVisibility(View.GONE);
+            holder.mesajGonder.setVisibility(View.GONE);
         }
         if(notifications.get(position).getDurum().equals("2")){
             holder.onayCheck.setVisibility(View.GONE);
             holder.onayRed.setVisibility(View.GONE);
             holder.onayBekle.setVisibility(View.VISIBLE);
+            holder.mesajGonder.setVisibility(View.GONE);
         }
         Uri uri = Uri.parse(notifications.get(position).getPrifilPic());
         Glide.with(holder.AdayPic.getContext()).load(uri).centerCrop().into(holder.AdayPic);
@@ -86,6 +89,7 @@ public class Ogrenci_RVAdapter_Notification  extends RecyclerView.Adapter<Ogrenc
         ImageView onayCheck,onayRed,onayBekle;
         LinearLayout linearLayout;
         ShapeableImageView AdayPic;
+        Button mesajGonder;
 
 
         public ViewHolder(@NonNull View itemView) {
@@ -97,6 +101,7 @@ public class Ogrenci_RVAdapter_Notification  extends RecyclerView.Adapter<Ogrenc
             onayCheck =  itemView.findViewById(R.id.onayCheck);
             onayRed =  itemView.findViewById(R.id.onayRed);
             onayBekle =  itemView.findViewById(R.id.onayBekle);
+            mesajGonder =  itemView.findViewById(R.id.mesajGonder);
             linearLayout = itemView.findViewById(R.id.other_linearLayout);
             mDatabaseReference= FirebaseDatabase.getInstance().getReference();
         }
