@@ -79,6 +79,8 @@ public class Other_RVAdapter_Notification extends RecyclerView.Adapter<Other_RVA
                 mContext.startActivity(myIntent);
             }
         });
+
+        holder.linearLayout.setTag(holder);
     }
 
     @Override
