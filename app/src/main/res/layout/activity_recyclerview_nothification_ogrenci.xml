@@ -56,7 +56,7 @@
                 android:id="@+id/mesajGonder"
                 android:layout_width="wrap_content"
                 android:layout_height="40dp"
-                android:textColor="#49C225"
+                android:textColor="#0F4FD3"
                 android:background="@color/transparent"
                 app:layout_constraintTop_toBottomOf="@id/ilanBaslik"
                 app:layout_constraintLeft_toRightOf="@id/AdayPic"
