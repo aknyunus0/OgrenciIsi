@@ -2,11 +2,9 @@ package com.DuzceBestTeam.ogrenciIsi;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.fragment.app.Fragment;
@@ -20,11 +18,8 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.Iterator;
 
 public class other_notification_fragment extends Fragment {
@@ -153,7 +148,7 @@ public class other_notification_fragment extends Fragment {
 
                                                 //son olarak bu amınakoduğumun bildirimine ekleme yapılır
                                                 notifications.add(new Notification(basvuranAd + " " + basvuranSoyAd, ilanBasligi, "2", basvuranResim, snapshot.getKey(),IlanKey));
-                                                recyclerView.setAdapter(new RVAdapter_Notification(notifications));
+                                                recyclerView.setAdapter(new Other_RVAdapter_Notification(notifications));
                                                 mDatabase.removeEventListener(this);
                                             }
 

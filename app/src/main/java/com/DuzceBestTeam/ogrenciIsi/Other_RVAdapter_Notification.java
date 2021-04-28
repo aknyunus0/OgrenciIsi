@@ -3,7 +3,6 @@ package com.DuzceBestTeam.ogrenciIsi;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -12,7 +11,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.bumptech.glide.Glide;
@@ -23,14 +21,14 @@ import com.google.firebase.database.FirebaseDatabase;
 
 import java.util.ArrayList;
 
-public class RVAdapter_Notification  extends RecyclerView.Adapter<RVAdapter_Notification.ViewHolder> {
+public class Other_RVAdapter_Notification extends RecyclerView.Adapter<Other_RVAdapter_Notification.ViewHolder> {
 
     ArrayList<Notification> notifications = new ArrayList<>();
     DatabaseReference mDatabaseReference;
     FirebaseAuth mAuth;
     Context mContext = null;
 
-    public RVAdapter_Notification(ArrayList<Notification> notifications) {
+    public Other_RVAdapter_Notification(ArrayList<Notification> notifications) {
         this.notifications = notifications;
     }
 
@@ -40,7 +38,7 @@ public class RVAdapter_Notification  extends RecyclerView.Adapter<RVAdapter_Noti
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_recyclerview_notification, parent, false);
         mContext=parent.getContext();
-        return new RVAdapter_Notification.ViewHolder(view);
+        return new Other_RVAdapter_Notification.ViewHolder(view);
     }
 
     @Override
@@ -59,7 +57,7 @@ public class RVAdapter_Notification  extends RecyclerView.Adapter<RVAdapter_Noti
             @Override
             public void onClick(View v) {
                 mDatabaseReference.child("User_Ogrenciler").child(notifications.get(position).getUserKey()).child("Basvurularim").child(notifications.get(position).getIlanKey()).child("Durum").setValue(1);
-                
+
             }
         });
 
