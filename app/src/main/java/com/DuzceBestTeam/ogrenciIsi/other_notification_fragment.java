@@ -84,6 +84,7 @@ public class other_notification_fragment extends Fragment {
     }
 
     private void verileriCek() {
+        notifications.clear();
         mAuth = FirebaseAuth.getInstance();
 
         //ilanını çekeceğimiz other user olduğu için o database referansı atanır
@@ -107,7 +108,7 @@ public class other_notification_fragment extends Fragment {
 
                             //döngü sırasında gelen yeni ilanı tutacak değişken
                             DataSnapshot ilan = ilanlar.next();
-                            final String IlanKey=ilan.getKey();
+                            final String IlanKey = ilan.getKey();
 
                             //eğer ilana en az bir başvuran varsa başvurular alt tablosu oluşacağından
                             //ilk önce bu tablonun oluşup oluşmadığı kontrol edilir
@@ -127,8 +128,7 @@ public class other_notification_fragment extends Fragment {
 
                                     //başvuran kişinin durumu 2 ise
                                     //yani beklemedeyse gösterileceğinden onun kontrolu yapılır
-                                    if(basvuru.child("Durum").getValue().toString().equals("2"))
-                                    {
+                                    if (basvuru.child("Durum").getValue().toString().equals("2")) {
                                         //basvuran kişinin bilgilerini getirmek için kullanıcılacak key
                                         String basvuranKey = basvuru.getKey();
 
@@ -147,7 +147,7 @@ public class other_notification_fragment extends Fragment {
                                                 String basvuranResim = snapshot.child("Profil Resmi").getValue().toString();
 
                                                 //son olarak bu amınakoduğumun bildirimine ekleme yapılır
-                                                notifications.add(new Notification(basvuranAd + " " + basvuranSoyAd, ilanBasligi, "2", basvuranResim, snapshot.getKey(),IlanKey));
+                                                notifications.add(new Notification(basvuranAd + " " + basvuranSoyAd, ilanBasligi, "2", basvuranResim, snapshot.getKey(), IlanKey));
                                                 recyclerView.setAdapter(new Other_RVAdapter_Notification(notifications));
                                                 mDatabase.removeEventListener(this);
                                             }
@@ -160,7 +160,6 @@ public class other_notification_fragment extends Fragment {
                                     }
                                 }
                             }
-
                         }
                     }
 
