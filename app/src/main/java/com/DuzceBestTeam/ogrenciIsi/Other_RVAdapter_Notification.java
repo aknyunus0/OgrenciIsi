@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
@@ -37,7 +38,7 @@ public class Other_RVAdapter_Notification extends RecyclerView.Adapter<Other_RVA
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.activity_recyclerview_notification, parent, false);
-        mContext=parent.getContext();
+        mContext = parent.getContext();
         return new Other_RVAdapter_Notification.ViewHolder(view);
     }
 
@@ -52,11 +53,11 @@ public class Other_RVAdapter_Notification extends RecyclerView.Adapter<Other_RVA
         holder.linearLayout.setTag(holder);
 
 
-
         holder.kabulEt.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mDatabaseReference.child("User_Ogrenciler").child(notifications.get(position).getUserKey()).child("Basvurularim").child(notifications.get(position).getIlanKey()).child("Durum").setValue(1);
+                mDatabaseReference.child("User_Other").child(mAuth.getCurrentUser().getUid()).child("Ilanlarim").child(notifications.get(position).getIlanKey()).child("Basvurular").child(notifications.get(position).getUserKey()).child("Durum").setValue(1);
 
             }
         });
@@ -65,6 +66,8 @@ public class Other_RVAdapter_Notification extends RecyclerView.Adapter<Other_RVA
             @Override
             public void onClick(View v) {
                 mDatabaseReference.child("User_Ogrenciler").child(notifications.get(position).getUserKey()).child("Basvurularim").child(notifications.get(position).getIlanKey()).child("Durum").setValue(0);
+                mDatabaseReference.child("User_Other").child(mAuth.getCurrentUser().getUid()).child("Ilanlarim").child(notifications.get(position).getIlanKey()).child("Basvurular").child(notifications.get(position).getUserKey()).child("Durum").setValue(0);
+
             }
         });
 
@@ -75,7 +78,7 @@ public class Other_RVAdapter_Notification extends RecyclerView.Adapter<Other_RVA
             public void onClick(View v) {
 
                 Intent myIntent = new Intent(mContext, showProfil.class);
-                myIntent.putExtra("UserKey",notifications.get(position).getUserKey());
+                myIntent.putExtra("UserKey", notifications.get(position).getUserKey());
                 mContext.startActivity(myIntent);
             }
         });
@@ -92,7 +95,7 @@ public class Other_RVAdapter_Notification extends RecyclerView.Adapter<Other_RVA
     public class ViewHolder extends RecyclerView.ViewHolder {
         TextView adayIsim;
         TextView ilanBaslik;
-        Button kabulEt,redEt;
+        Button kabulEt, redEt;
         LinearLayout linearLayout;
         ShapeableImageView AdayPic;
 
@@ -104,9 +107,10 @@ public class Other_RVAdapter_Notification extends RecyclerView.Adapter<Other_RVA
             ilanBaslik = itemView.findViewById(R.id.ilanBaslik);
             kabulEt = itemView.findViewById(R.id.kabulEt);
             redEt = itemView.findViewById(R.id.redEt);
-            AdayPic =  itemView.findViewById(R.id.AdayPic);
+            AdayPic = itemView.findViewById(R.id.AdayPic);
             linearLayout = itemView.findViewById(R.id.other_linearLayout);
-            mDatabaseReference= FirebaseDatabase.getInstance().getReference();
+            mDatabaseReference = FirebaseDatabase.getInstance().getReference();
+            mAuth = FirebaseAuth.getInstance();
         }
     }
 }

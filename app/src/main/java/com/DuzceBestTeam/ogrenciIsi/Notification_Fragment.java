@@ -26,7 +26,7 @@ public class Notification_Fragment extends Fragment {
 
 
     FirebaseAuth mAuth;
-    DatabaseReference mDatabase, mDatabase1,mDatabase2;
+    DatabaseReference mDatabase, mDatabase1, mDatabase2;
     ArrayList<Notification> notifications;
     RecyclerView recyclerView;
     Context context;
