@@ -147,34 +147,7 @@ public class Notification_Fragment extends Fragment {
     }
 
 
-  /* private void verileriCek() {
 
-        mAuth = FirebaseAuth.getInstance();
-        mDatabase = FirebaseDatabase.getInstance().getReference().child("User_Ogrenciler");
-        mDatabase.child(mAuth.getCurrentUser().getUid()).child("Ilanlarim")
-                .addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(@NonNull DataSnapshot snapshot) {
-                        Iterator<DataSnapshot> items = snapshot.getChildren().iterator();
-                        notifications.clear();
-
-                        while (items.hasNext()) {
-                            DataSnapshot item = items.next();
-                            final String ilanBasligi = item.child("Ilan Basligi").getValue().toString();
-                            notifications.add(new Notification("user name", ilanBasligi, "2", "https://kstu.edu.tr/kstu-file/uploads/default-user-image.png"));
-                            recyclerView.setAdapter(new RVAdapter_Notification(notifications));
-                            mDatabase.removeEventListener(this);
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(@NonNull DatabaseError error) {
-
-                    }
-                });
-
-
-    }*/
 }
 
 
